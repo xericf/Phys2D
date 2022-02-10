@@ -1,4 +1,4 @@
-package model;
+package model.collider;
 
 public interface Collider {
 

@@ -1,7 +1,5 @@
 package ui;
 
-import model.Vector2;
-
 public class Coordinate {
 
     private int valX;

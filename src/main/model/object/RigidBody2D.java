@@ -1,7 +1,10 @@
-package model;
+package model.object;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
+import model.collider.Collider;
+import model.util.Transform;
+import model.util.Vector2;
 import ui.ConsoleDemo;
 import ui.Coordinate;
 
@@ -38,7 +41,6 @@ public class RigidBody2D {
     public void tick(long deltaTime) {
         position.add(velocity);
     }
-
 
 
 }

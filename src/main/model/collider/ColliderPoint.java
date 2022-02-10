@@ -1,4 +1,6 @@
-package model;
+package model.collider;
+
+import model.util.Vector2;
 
 public class ColliderPoint {
 

@@ -1,4 +1,4 @@
-package model;
+package model.util;
 
 // class to contain a 2-dimensional vector value
 public class Vector2 {

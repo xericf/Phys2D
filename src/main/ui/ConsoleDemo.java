@@ -2,19 +2,16 @@ package ui;
 
 
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import model.Vector2;
+import model.util.Vector2;
 import model.World;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.Random;
 
 public class ConsoleDemo {
 
@@ -35,7 +32,7 @@ public class ConsoleDemo {
         ticksPerSecond = 30;
 
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        terminalFactory.setInitialTerminalSize(new TerminalSize(150, 50));
+        terminalFactory.setInitialTerminalSize(new TerminalSize(120, 40));
 
         screen = terminalFactory.createScreen();
         TerminalSize terminalSize = screen.getTerminalSize();

@@ -1,7 +1,8 @@
-package model;
+package model.object;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
+import model.util.Vector2;
 import ui.ConsoleDemo;
 import ui.Coordinate;
 
@@ -12,7 +13,6 @@ public class Player extends RigidBody2D {
 
     public Player(Vector2 position, Vector2 velocity, Vector2 force) {
         super(position, velocity, force);
-
     }
 
     public void handleInput(Character c) {
