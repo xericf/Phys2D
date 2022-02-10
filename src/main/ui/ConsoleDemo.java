@@ -32,7 +32,7 @@ public class ConsoleDemo {
     public ConsoleDemo() throws IOException {
         isActive = true;
         previousTime = System.nanoTime();
-        ticksPerSecond = 60;
+        ticksPerSecond = 30;
 
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         terminalFactory.setInitialTerminalSize(new TerminalSize(150, 50));
@@ -41,7 +41,6 @@ public class ConsoleDemo {
         TerminalSize terminalSize = screen.getTerminalSize();
         Vector2 worldSize = new Vector2(terminalSize.getColumns(), // x
                                         terminalSize.getRows());   // y
-        System.out.println(worldSize.getX() + " " + worldSize.getY());
         world = new World(worldSize);
     }
 
@@ -72,9 +71,11 @@ public class ConsoleDemo {
         System.exit(0);
     }
 
+
     // forwards the world state by a certain amount of time
     private void tick(long deltaTime) throws IOException {
         handleInput();
+        world.tick(deltaTime);
 
         // Rendering is done last for most up-to-date graphics
         screen.clear();
@@ -89,6 +90,11 @@ public class ConsoleDemo {
             return;
         }
         Character c = key.getCharacter();
+
+        if (c.charValue() == 'q') {
+            isActive = false;
+            return;
+        }
 
         world.handleInput(c);
         System.out.println(c);

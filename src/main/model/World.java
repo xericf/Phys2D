@@ -27,13 +27,17 @@ public class World {
     }
 
     public void tick(long deltaTime) {
+        if (player != null) {
+            player.tick(deltaTime);
+        }
+
         for (RigidBody2D object : worldObjects) {
             object.tick(deltaTime);
         }
     }
 
     public void handleInput(Character c) {
-
+        player.handleInput(c);
     }
 
     public void drawTerminal(Screen screen) {

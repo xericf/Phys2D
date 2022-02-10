@@ -6,7 +6,8 @@ public class Vector2 {
     private float valX;
     private float valY;
 
-    // Constructor for a 2-dimensional vector
+    // Constructor for a 2-dimensional vector, All values are always in their
+    // default SI units i.e: 1 kg, 1 m, 1 N, etc.
     // EFFECTS: Initializes values of the vector with valX = x, and valY = y
     public Vector2(float x, float y) {
         this.valX = x;
