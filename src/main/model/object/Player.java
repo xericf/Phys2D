@@ -10,7 +10,7 @@ import model.util.Coordinate;
 // Represents a physical object that could be controlled by the user
 public class Player extends RigidBody2D {
 
-    private static final float moveVelocity = 25f;
+    public static final float moveVelocity = 25f;
     private float width = 1f;
     private float height = 1f;
 

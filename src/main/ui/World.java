@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class World {
 
     private ArrayList<Circle> worldObjects;
-    private Player player = null;
+    private Player player;
     private Vector2 gravityForce;
     private Vector2 size;
 
@@ -31,7 +31,7 @@ public class World {
         this.topLeft = new Vector2(0, 0); // origin point
         this.bottomRight = new Vector2(size.getX(), size.getY()); // screen height, screen width
 
-        worldObjects = new ArrayList<Circle>();
+        worldObjects = new ArrayList<>();
         gravityForce = new Vector2(0, 9.81f);
 
         // Change this in the future for games that don't need players
@@ -115,10 +115,6 @@ public class World {
             object.drawTerminal(screen);
         }
 
-    }
-
-    public void setGravityForce(Vector2 newGravity) {
-        gravityForce.set(newGravity);
     }
 
     public ArrayList<Circle> getWorldObjects() {

@@ -21,13 +21,5 @@ public class Coordinate {
         return valY;
     }
 
-    public void setX(int x) {
-        valX = x;
-    }
-
-    public void setY(int y) {
-        valY = y;
-    }
-
 
 }

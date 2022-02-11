@@ -8,7 +8,7 @@ import ui.World;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-/*
+
 public class WorldTest {
 
     private World world;
@@ -36,10 +36,5 @@ public class WorldTest {
         assertTrue(world.getWorldObjects().isEmpty());
     }
 
-    @Test
-    void testTick() {
-
-    }
-
 }
- */
+

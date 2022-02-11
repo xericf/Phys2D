@@ -31,5 +31,17 @@ public class TestPlayer {
         assertEquals(1f, rect.getWidth());
     }
 
+    @Test
+    void testHandleInput() {
+        char a = 'a';
+        char d = 'd';
+
+        body.handleInput(a);
+        assertEquals(Player.moveVelocity, body.getVelocity().getX());
+
+        body.handleInput(d);
+        assertEquals(-Player.moveVelocity, body.getVelocity().getX());
+
+    }
 
 }

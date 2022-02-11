@@ -3,8 +3,7 @@ package model.util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Vector2Test {
 
@@ -62,6 +61,12 @@ public class Vector2Test {
 
         assertTrue(vec.equals(new Vector2(14f, 12f)));
 
+        vec.set(new Vector2(2f, 2f));
+        vec.setX(2f);
+        vec.setY(2f);
+
+        assertFalse(vec.equals(new Vector2(1f, 1f)));
+        assertFalse(vec.equals(new Vector2(2f, 1f)));
     }
 
 }
