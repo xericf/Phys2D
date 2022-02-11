@@ -4,6 +4,7 @@ import model.util.Vector2;
 
 public abstract class Collider {
 
+    /*
     protected boolean anchored;
 
     public boolean isAnchored() {
@@ -13,6 +14,7 @@ public abstract class Collider {
     public void setAnchored(boolean anchored) {
         this.anchored = anchored;
     }
+     */
 
     // Checks if a ColliderRect is within a box built by topLeft and bottomRight points
     // EFFECTS: If all points of a ColliderRect are within the rectangle defined by the topLeft

@@ -1,26 +1,23 @@
-package model;
+package model.util;
 
-import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.World;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class WorldTest {
+public class CoordinateTest {
 
-    private World world;
+    private Coordinate coordinate;
 
     @BeforeEach
     void runBefore() {
-        Vector2 size = new Vector2(50, 50);
-        world = new World(size);
+        coordinate = new Coordinate(10, 11);
     }
 
     @Test
     void testConstructor() {
-
-
+        assertEquals(10, coordinate.getX());
+        assertEquals(11, coordinate.getY());
     }
 
 }

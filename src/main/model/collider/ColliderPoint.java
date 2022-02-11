@@ -1,7 +1,7 @@
 package model.collider;
 
 import model.util.Vector2;
-
+/*
 public class ColliderPoint {
 
     private Vector2 pointA;
@@ -16,3 +16,4 @@ public class ColliderPoint {
     }
 
 }
+*/

@@ -10,7 +10,7 @@ import model.util.Coordinate;
 // Represents a physical object that could be controlled by the user
 public class Player extends RigidBody2D {
 
-    private float moveVelocity = 25f;
+    private static final float moveVelocity = 25f;
     private float width = 1f;
     private float height = 1f;
 
@@ -24,7 +24,6 @@ public class Player extends RigidBody2D {
         super(position, velocity, force);
 
         collider = new ColliderRect(position, width, height);
-        collider.setAnchored(true);
     }
 
     // Provides pressing certain keys with player-specific functionality

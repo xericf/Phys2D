@@ -17,6 +17,7 @@ public class Vector2 {
         this.valY = y;
     }
 
+    /*
     // Multiplies two 2-dimensional vectors, and produces a new vector
     // EFFECTS: Returns a new Vector2 object with the x value equal
     // to the product of the first and second vector's x value, and
@@ -28,6 +29,7 @@ public class Vector2 {
 
         return product;
     }
+    */
 
     // Multiplies a 2-dimensional vectors and a value, and produces a new vector
     // EFFECTS: Returns a new 2-Dimensional vector equal to a certain
@@ -39,6 +41,7 @@ public class Vector2 {
         return product;
     }
 
+    /*
     // Adds two 2-dimensional vectors together
     // EFFECTS: Returns a new 2-Dimensional vector equal to the sum
     // of two vectors.
@@ -48,6 +51,7 @@ public class Vector2 {
 
         return product;
     }
+    */
 
     // Multiples current vector with another vector
     // MODIFIES: this

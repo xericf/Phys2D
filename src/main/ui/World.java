@@ -137,6 +137,14 @@ public class World {
         return player;
     }
 
+    public Vector2 getTopLeft() {
+        return topLeft;
+    }
+
+    public Vector2 getBottomRight() {
+        return bottomRight;
+    }
+
     // Nanoseconds to seconds
     // EFFECTS: Converts a long Nano seconds value into a float seconds value
     public static float convertNanoToSeconds(long nanoSecs) {

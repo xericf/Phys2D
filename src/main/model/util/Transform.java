@@ -1,5 +1,5 @@
 package model.util;
-
+/*
 // Holds properties pertaining to the transform of an object
 public class Transform {
     private Vector2 position;
@@ -39,4 +39,11 @@ public class Transform {
     public void setRotation(Vector2 rotation) {
         this.rotation = rotation;
     }
+
+    public boolean equals(Transform transform) {
+        return position.equals(transform.getPosition())
+                && scale.equals(transform.getScale())
+                && rotation.equals(transform.getRotation());
+    }
 }
+*/
