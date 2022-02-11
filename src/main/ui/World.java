@@ -83,8 +83,8 @@ public class World {
 
     // Provides pressing certain keys with functionality
     // MODIFIES: this
-    // EFFECTS: Spawns new Circle physics object on given keycode, forwards keyCode into
-    // player for additional player-specific checks
+    // EFFECTS: Spawns new Circle physics object on given keycode with a random x velocity,
+    // forwards keyCode into player for additional player-specific checks
     public void handleInput(Character c) {
 
         char keyValue = c.charValue();

@@ -51,6 +51,8 @@ public class TestPlayer {
         body.handleInput(d);
         assertEquals(Player.moveVelocity, body.getVelocity().getX());
 
+        body.handleInput('e');
+        assertEquals(Player.moveVelocity, body.getVelocity().getX());
     }
 
 }
