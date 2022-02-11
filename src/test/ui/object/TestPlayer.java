@@ -1,4 +1,4 @@
-package model.object;
+package ui.object;
 
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -42,6 +42,10 @@ public class TestPlayer {
 
     @Test
     void testHandleInput() {
+        // Testing handle input because at its core it has basic functionality
+        // based on certain char codes from 'keys', it is not actually the function
+        // that polls for input.
+
         char a = 'a';
         char d = 'd';
 

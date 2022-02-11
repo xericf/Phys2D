@@ -3,9 +3,8 @@ package ui;
 
 import com.googlecode.lanterna.screen.Screen;
 import model.collider.Collider;
-import model.object.Circle;
-import model.object.Player;
-import model.object.RigidBody2D;
+import ui.object.Circle;
+import ui.object.Player;
 import model.util.Vector2;
 
 import java.util.ArrayList;

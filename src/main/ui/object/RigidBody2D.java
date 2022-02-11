@@ -1,9 +1,7 @@
-package model.object;
+package ui.object;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
-import model.collider.Collider;
-import model.collider.ColliderRect;
 import model.util.Vector2;
 import ui.ConsoleDemo;
 import model.util.Coordinate;

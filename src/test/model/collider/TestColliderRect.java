@@ -1,6 +1,5 @@
 package model.collider;
 
-import model.object.Circle;
 import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

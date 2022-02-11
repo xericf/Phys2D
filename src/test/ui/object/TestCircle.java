@@ -1,4 +1,4 @@
-package model.object;
+package ui.object;
 
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;

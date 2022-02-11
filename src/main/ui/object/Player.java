@@ -1,4 +1,4 @@
-package model.object;
+package ui.object;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
