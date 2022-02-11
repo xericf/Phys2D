@@ -28,8 +28,8 @@ difficult problems in the future.
 
 
 As a *user*, I want to:
-- be able to 
-- item 2
-- item 3
-
-An example of text with **bold** and *italic* fonts.  
+- Be able to add a ball to the list of physical objects in a World by pressing " t " (lowercase)
+- Be able to control a player's movement with the " a " and " d " keys (lowercase, make sure not CAPS locked)
+- Be able to quit the game when " q " is pressed
+- Be able to clear the balls on the screen when " f " is pressed
+- Reverse the velocity of my player when I hit the screen's border

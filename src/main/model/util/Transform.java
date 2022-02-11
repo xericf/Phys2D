@@ -1,22 +1,20 @@
 package model.util;
 
+// Holds properties pertaining to the transform of an object
 public class Transform {
     private Vector2 position;
     private Vector2 scale;
     private Vector2 rotation;
 
+    // Constructor for transform
+    // EFFECTS: Creates a transform object with a given position,
+    // sets the scale to 1 m x 1 m and the object to have no
+    // rotation
     public Transform(Vector2 position) {
         this.position = position;
         this.scale = new Vector2(1, 1);
         this.rotation = new Vector2(0, 0);
     }
-
-    public Transform(Vector2 position, Vector2 scale, Vector2 rotation) {
-        this.position = position;
-        this.scale = scale;
-        this.rotation = rotation;
-    }
-
 
     public Vector2 getPosition() {
         return position;

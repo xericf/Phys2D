@@ -1,5 +1,6 @@
-package ui;
+package model.util;
 
+// (x, y) coordinates of a grid
 public class Coordinate {
 
     private int valX;
