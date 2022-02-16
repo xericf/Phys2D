@@ -2,6 +2,7 @@ package model.collider;
 
 import model.util.Vector2;
 
+// Collider class for collision detection between physical objects
 public abstract class Collider {
 
     /*

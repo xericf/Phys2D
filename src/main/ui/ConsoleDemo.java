@@ -13,6 +13,7 @@ import model.util.Vector2;
 
 import java.io.IOException;
 
+// Console demo of a ball game for phase 1
 public class ConsoleDemo {
 
     private World world;

@@ -108,6 +108,7 @@ public class Vector2 {
         valY = y;
     }
 
+    // EFFECTS: returns true if the valX and valY is equal to a given vector's x and y components
     public boolean equals(Vector2 vec) {
         return vec.getX() == valX && vec.getY() == valY;
     }
