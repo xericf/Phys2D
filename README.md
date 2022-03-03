@@ -33,3 +33,7 @@ As a *user*, I want to:
 - Be able to quit the game when " q " is pressed
 - Be able to clear the balls on the screen when " f " is pressed
 - Reverse the velocity of my player when I hit the screen's border
+
+Phase 2
+- Be able to save my World's information regarding its type and each physical object's instantaneous velocity, position, and acceleration onto a file by pressing " i ".
+- Be able to load a World's information from a file by pressing " o " and selecting a file.
