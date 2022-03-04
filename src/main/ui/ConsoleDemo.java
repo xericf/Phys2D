@@ -8,13 +8,19 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 import model.util.Coordinate;
 import model.util.Vector2;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Console demo of a ball game for phase 1
 public class ConsoleDemo {
+
+    public static final int defaultColumns = 120;
+    public static final int defaultRows = 40;
 
     private World world;
 
@@ -27,22 +33,26 @@ public class ConsoleDemo {
     private long previousTime;
     private long currentTime;
 
+    private JsonWriter jsonWriter;
+    public static final String consoleDemoPath = "./data/consoleWorld.json";
+
     // Constructor for ConsoleDemo for phase 1 that showcases gravity and dynamics
     // EFFECTS: Constructs the demo, sets up the terminal window in which the simulation will be
-    // played of a default width of 120 column and 40 rows.
+    // played of a default width of 120 column and 40 rows, and creates a new JsonWriter object.
     public ConsoleDemo() throws IOException {
         isActive = true;
         previousTime = System.nanoTime();
         ticksPerSecond = 60;
 
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        terminalFactory.setInitialTerminalSize(new TerminalSize(120, 40));
+        terminalFactory.setInitialTerminalSize(new TerminalSize(defaultColumns, defaultRows));
 
         screen = terminalFactory.createScreen();
         TerminalSize terminalSize = screen.getTerminalSize();
         Vector2 worldSize = new Vector2(terminalSize.getColumns(), // x
                                         terminalSize.getRows());   // y
         world = new World(worldSize);
+        jsonWriter = new JsonWriter(consoleDemoPath);
     }
 
     // Begins the simulation
@@ -102,10 +112,14 @@ public class ConsoleDemo {
         }
 
         Character c = key.getCharacter();
-
-        if (c.charValue() == 'q') {
+        char charValue = c.charValue();
+        if (charValue == 'q') {
             isActive = false;
             return;
+        } else if (charValue == 'i') {
+            saveWorld();
+        } else if (charValue == 'o') {
+            loadWorld();
         }
 
         world.handleInput(c);
@@ -129,6 +143,34 @@ public class ConsoleDemo {
         text.putString(1, 1, "          F = Remove All Balls");
         text.putString(1, 2, "          T = Add Ball");
         text.putString(1, 3, "        A/D = Move Player");
+        text.putString(1, 4, "        I/O = Save / Load");
+    }
+
+    // EFFECTS: Saves data about the world onto a JSON file
+    public void saveWorld() {
+        // this could become an abstract or higher-level method in the future
+
+        try {
+            jsonWriter.openWriter();
+            jsonWriter.write(world);
+            jsonWriter.closeWriter();
+            System.out.println("Saved the world state to " + consoleDemoPath);
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found for saving");
+        }
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Loads world data from a JSON file, replaces old world with a new world
+    public void loadWorld()  {
+
+        try {
+            world = JsonReader.readWorld(consoleDemoPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // Draws a character at a coordinate

@@ -2,7 +2,7 @@ package ui;
 
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import ui.object.Circle;
+import ui.object.Ball;
 import ui.object.Player;
 import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,7 +76,7 @@ public class WorldTest {
 
         world.handleInput('t');
         assertEquals(1, world.getWorldObjects().size());
-        assertTrue(world.getWorldObjects().get(0) instanceof Circle);
+        assertTrue(world.getWorldObjects().get(0) instanceof Ball);
 
         world.handleInput('f');
         assertEquals(0, world.getWorldObjects().size());

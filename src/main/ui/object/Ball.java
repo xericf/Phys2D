@@ -8,14 +8,14 @@ import ui.ConsoleDemo;
 import model.util.Coordinate;
 
 // Circle physics object, not deformable.
-public class Circle extends RigidBody2D {
+public class Ball extends RigidBody2D {
 
     private ColliderCircle collider;
 
     // Represent a 2-dimensional rigid body in the shape of a circle
     // EFFECTS: Constructor for a circle, initializes a new circular collider
     // at a given position with a default radius of 1.
-    public Circle(Vector2 position, Vector2 velocity, Vector2 force) {
+    public Ball(Vector2 position, Vector2 velocity, Vector2 force) {
         super(position, velocity, force);
 
         collider = new ColliderCircle(position, 1);

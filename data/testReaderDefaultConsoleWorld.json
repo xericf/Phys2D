@@ -1,0 +1,33 @@
+{
+    "size": {
+        "x": 120,
+        "y": 40
+    },
+    "bottomRight": {
+        "x": 120,
+        "y": 40
+    },
+    "world_objects": [],
+    "topLeft": {
+        "x": 0,
+        "y": 0
+    },
+    "gravityForce": {
+        "x": 0,
+        "y": 9.81
+    },
+    "player": {
+        "force": {
+            "x": 0,
+            "y": 0
+        },
+        "position": {
+            "x": 1,
+            "y": 35
+        },
+        "velocity": {
+            "x": 0,
+            "y": 0
+        }
+    }
+}

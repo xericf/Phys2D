@@ -12,13 +12,13 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestCircle {
+public class TestBall {
 
-    private Circle body;
+    private Ball body;
 
     @BeforeEach
     void runBefore() {
-        body = new Circle(new Vector2(1f, 2f),
+        body = new Ball(new Vector2(1f, 2f),
                 new Vector2(2f, 3f),
                 new Vector2(10f, 10f));
     }

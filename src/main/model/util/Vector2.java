@@ -1,7 +1,10 @@
 package model.util;
 
+import persistence.Savable;
+import org.json.JSONObject;
+
 // class to contain a 2-dimensional vector value
-public class Vector2 {
+public class Vector2 implements Savable {
 
     public static final Vector2 invertX = new Vector2(-1f, 1);
     public static final Vector2 invertY = new Vector2(1, -1f);
@@ -111,6 +114,21 @@ public class Vector2 {
     // EFFECTS: returns true if the valX and valY is equal to a given vector's x and y components
     public boolean equals(Vector2 vec) {
         return vec.getX() == valX && vec.getY() == valY;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("x", this.valX);
+        jsonObject.put("y", this.valY);
+        return jsonObject;
+    }
+
+    // EFFECTS: Parses a JSON string and converts it into a Vector2
+    public static Vector2 parseJSON(JSONObject jsonObject) {
+        Vector2 result = new Vector2(jsonObject.getFloat("x"),
+                                    jsonObject.getFloat("y"));
+        return result;
     }
 
 }

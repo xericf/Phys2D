@@ -2,12 +2,14 @@ package ui.object;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
+import persistence.Savable;
 import model.util.Vector2;
+import org.json.JSONObject;
 import ui.ConsoleDemo;
 import model.util.Coordinate;
 
 // Represents a physical rigid body that does not change or deform shape
-public class RigidBody2D {
+public class RigidBody2D implements Savable {
 
     protected Vector2 position;
     protected Vector2 velocity;
@@ -72,6 +74,16 @@ public class RigidBody2D {
 
     public Vector2 getForce() {
         return force;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("position", position.toJson());
+        jsonObject.put("velocity", velocity.toJson());
+        jsonObject.put("force", force.toJson());
+        return jsonObject;
     }
 
 }
