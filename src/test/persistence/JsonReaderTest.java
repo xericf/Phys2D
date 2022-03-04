@@ -18,6 +18,7 @@ public class JsonReaderTest {
     @Test
     void testReaderWorldFileDoesNotExist() {
         try {
+            JsonReader jsonReader = new JsonReader();
             World world = JsonReader.readWorld("./data/FILENOTFOUND.json");
             fail("IOException was expected, but not thrown");
         } catch (IOException e) {
