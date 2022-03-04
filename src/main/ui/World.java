@@ -158,8 +158,9 @@ public class World implements Savable {
 
     /*
     // TODO, set size must always change the topLeft and bottomRight Vector2 data
-    public void setSize() {
-
+    public void setSize(Vector2 size) {
+        this.size = size;
+        this.BottomRight = this.size;
     }
     */
 
