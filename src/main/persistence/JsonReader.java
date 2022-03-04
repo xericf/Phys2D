@@ -46,15 +46,15 @@ public class JsonReader {
     private static World parseWorld(JSONObject worldData) {
 
         // World properties
-        Vector2 size = Vector2.parseJSON(worldData.getJSONObject("size"));
-        Vector2 gravityForce = Vector2.parseJSON(worldData.getJSONObject("gravityForce"));
+        Vector2 size = Vector2.parseJson(worldData.getJSONObject("size"));
+        Vector2 gravityForce = Vector2.parseJson(worldData.getJSONObject("gravityForce"));
 
         // player
 
         JSONObject jsonPlayer = worldData.getJSONObject("player");
-        Vector2 playerPosition = Vector2.parseJSON(jsonPlayer.getJSONObject("position"));
-        Vector2 playerVelocity = Vector2.parseJSON(jsonPlayer.getJSONObject("velocity"));
-        Vector2 playerForce = Vector2.parseJSON(jsonPlayer.getJSONObject("force"));
+        Vector2 playerPosition = Vector2.parseJson(jsonPlayer.getJSONObject("position"));
+        Vector2 playerVelocity = Vector2.parseJson(jsonPlayer.getJSONObject("velocity"));
+        Vector2 playerForce = Vector2.parseJson(jsonPlayer.getJSONObject("force"));
         Player resultPlayer = new Player(playerPosition, playerVelocity, playerForce);
 
         // other physical objects
@@ -65,9 +65,9 @@ public class JsonReader {
 
         for (int i = 0; i < length; i++) {
             JSONObject jsonPhysicalObject = worldObjects.getJSONObject(i);
-            Vector2 position = Vector2.parseJSON(jsonPhysicalObject.getJSONObject("position"));
-            Vector2 velocity = Vector2.parseJSON(jsonPhysicalObject.getJSONObject("velocity"));
-            Vector2 force = Vector2.parseJSON(jsonPhysicalObject.getJSONObject("force"));
+            Vector2 position = Vector2.parseJson(jsonPhysicalObject.getJSONObject("position"));
+            Vector2 velocity = Vector2.parseJson(jsonPhysicalObject.getJSONObject("velocity"));
+            Vector2 force = Vector2.parseJson(jsonPhysicalObject.getJSONObject("force"));
             Ball ball = new Ball(position, velocity, force);
             resultObjects.add(ball);
         }

@@ -32,7 +32,7 @@ public class JsonWriter {
         JSONObject worldData = world.toJson();
 
         // Pretty prints with TAB indents
-        saveJSONToFile(worldData.toString(TAB));
+        saveJsonToFile(worldData.toString(TAB));
     }
 
     // MODIFIES: this
@@ -43,7 +43,7 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes string to a file with current path
-    private void saveJSONToFile(String json) {
+    private void saveJsonToFile(String json) {
         writer.print(json);
     }
 

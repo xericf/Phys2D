@@ -125,7 +125,7 @@ public class Vector2 implements Savable {
     }
 
     // EFFECTS: Parses a JSON string and converts it into a Vector2
-    public static Vector2 parseJSON(JSONObject jsonObject) {
+    public static Vector2 parseJson(JSONObject jsonObject) {
         Vector2 result = new Vector2(jsonObject.getFloat("x"),
                                     jsonObject.getFloat("y"));
         return result;
