@@ -3,16 +3,20 @@ package ui;
 
 import com.googlecode.lanterna.screen.Screen;
 import model.collider.Collider;
-import ui.object.Circle;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Savable;
+import ui.object.Ball;
 import ui.object.Player;
 import model.util.Vector2;
+import ui.object.RigidBody2D;
 
 import java.util.ArrayList;
 
 // Represents a physical world
-public class World {
+public class World implements Savable {
 
-    private ArrayList<Circle> worldObjects;
+    private ArrayList<Ball> worldObjects;
     private Player player;
     private Vector2 gravityForce;
     private Vector2 size;
@@ -51,7 +55,7 @@ public class World {
             player.tick(deltaTime);
         }
 
-        for (Circle object : worldObjects) {
+        for (Ball object : worldObjects) {
             object.setForce(gravityForce);
             object.tick(deltaTime);
         }
@@ -71,7 +75,7 @@ public class World {
             }
         }
 
-        for (Circle object1 : worldObjects) {
+        for (Ball object1 : worldObjects) {
             Collider.calculateVelocityCollision(object1.getVelocity(),
                                                 object1.getCollider(),
                                                 topLeft, bottomRight);
@@ -89,11 +93,11 @@ public class World {
         char keyValue = c.charValue();
         if (keyValue == 't') {
             // make it spawn at mouse position too if mouse is on screen
-            Circle circle = new Circle(new Vector2(60, 3),
+            Ball ball = new Ball(new Vector2(60, 3),
                     new Vector2((float) Math.random() * 22 - 11, 0),
                     new Vector2(0, 0));
 
-            worldObjects.add(circle);
+            worldObjects.add(ball);
         } else if (keyValue == 'f') {
             worldObjects.clear();
         }
@@ -110,13 +114,13 @@ public class World {
             player.drawTerminal(screen);
         }
 
-        for (Circle object : worldObjects) {
+        for (Ball object : worldObjects) {
             object.drawTerminal(screen);
         }
 
     }
 
-    public ArrayList<Circle> getWorldObjects() {
+    public ArrayList<Ball> getWorldObjects() {
         return worldObjects;
     }
 
@@ -140,6 +144,25 @@ public class World {
         return bottomRight;
     }
 
+    public void setGravityForce(Vector2 gravityForce) {
+        this.gravityForce = gravityForce;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public void setWorldObjects(ArrayList<Ball> objects) {
+        this.worldObjects = objects;
+    }
+
+    /*
+    // TODO, set size must always change the topLeft and bottomRight Vector2 data
+    public void setSize() {
+
+    }
+    */
+
     // Nanoseconds to seconds
     // EFFECTS: Converts a long Nano seconds value into a float seconds value
     public static float convertNanoToSeconds(long nanoSecs) {
@@ -147,4 +170,26 @@ public class World {
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        // PLAYER
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("player", player.toJson());
+
+        // ALL OTHER WORLD OBJECTS
+        JSONArray rigidBodies = new JSONArray();
+        for (RigidBody2D rigidBody : worldObjects) {
+            rigidBodies.put(rigidBody.toJson());
+        }
+
+        jsonObject.put("world_objects", rigidBodies);
+
+        // WORLD PROPERTIES
+        jsonObject.put("size", size.toJson());
+        jsonObject.put("gravityForce", gravityForce.toJson());
+        jsonObject.put("topLeft", topLeft.toJson());
+        jsonObject.put("bottomRight", bottomRight.toJson());
+
+        return jsonObject;
+    }
 }
