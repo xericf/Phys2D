@@ -1,12 +1,10 @@
 package ui;
 
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import ui.object.Ball;
-import ui.object.Player;
 import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.object.Ball;
+import ui.object.Player;
 import ui.object.World;
 
 import java.io.IOException;
@@ -40,10 +38,6 @@ public class WorldTest {
 
         assertTrue(world.getWorldObjects().isEmpty());
 
-        // for UI code coverage (as exempted from rubric)
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen = terminalFactory.createScreen();
-        world.drawTerminal(screen);
     }
 
     @Test

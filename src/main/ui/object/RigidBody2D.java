@@ -1,12 +1,9 @@
 package ui.object;
 
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.screen.Screen;
-import persistence.Savable;
+import model.util.Transform;
 import model.util.Vector2;
 import org.json.JSONObject;
-import ui.demo.ConsoleDemo;
-import model.util.Coordinate;
+import persistence.Savable;
 
 import java.awt.*;
 
@@ -19,7 +16,7 @@ public class RigidBody2D implements Savable {
 
    // protected float mass;
 
-   // protected Transform transform;
+    protected Transform transform;
 
     // Constructor for a rigid body
     // Effects: Builds a rigid body of a certain position, velocity, and force vector
@@ -39,13 +36,6 @@ public class RigidBody2D implements Savable {
         g.fillRect((int) position.getX(), (int) position.getY(), 25, 25);
     }
 
-    // Draws the rigid body
-    // MODIFIES: screen
-    // EFFECTS: Draws the rigid body on the terminal represented by a rectangle shape
-    public void drawTerminal(Screen screen) {
-        Coordinate coordinate = new Coordinate((int) position.getX(), (int) position.getY());
-        ConsoleDemo.drawAtCoordinate(screen, coordinate, '█', TextColor.ANSI.WHITE);
-    }
 
     // Updates the rigid body's properties every tick
     // MODIFIES: this

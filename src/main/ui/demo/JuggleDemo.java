@@ -1,11 +1,5 @@
 package ui.demo;
 
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.Terminal;
-import model.util.Coordinate;
 import model.util.Vector2;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -21,16 +15,15 @@ public class JuggleDemo extends JPanel implements Runnable {
 
     public static final int defaultWidth = 1200;
     public static final int defaultHeight = 720;
+    public static final int controlsFontSize = 15;
+    public static final Font controlsFont = new Font("Courier", Font.PLAIN, controlsFontSize);
 
     private World world;
 
     Thread panelThread;
 
-    private Screen screen;
-    private Terminal terminal;
-
     private boolean isActive;
-    private int ticksPerSecond;
+    private static int ticksPerSecond = 120;
 
     private long previousTime;
     private long currentTime;
@@ -44,7 +37,6 @@ public class JuggleDemo extends JPanel implements Runnable {
     public JuggleDemo() {
         isActive = true;
         previousTime = System.nanoTime();
-        ticksPerSecond = 60;
 
         setDoubleBuffered(true); // double buffer to increase performance
         setPreferredSize(new Dimension(defaultWidth, defaultHeight));
@@ -138,20 +130,26 @@ public class JuggleDemo extends JPanel implements Runnable {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        drawControls(g);
         render(g);
     }
 
     // draws control instructions
     // MODIFIES: this
     // EFFECTS: renders controls information in the top-left corner of the screen
-    private void drawControls() {
-        TextGraphics text = screen.newTextGraphics();
-        text.setForegroundColor(TextColor.ANSI.WHITE);
-        text.putString(1, 0, "Controls: Q = Quit");
-        text.putString(1, 1, "          F = Remove All Balls");
-        text.putString(1, 2, "          T = Add Ball");
-        text.putString(1, 3, "        A/D = Move Player");
-        text.putString(1, 4, "        I/O = Save / Load");
+    private void drawControls(Graphics g) {
+        g.setColor(Color.GREEN);
+        drawText(g, 1, controlsFontSize, "Controls: Q = Quit", controlsFont);
+        drawText(g, 1, controlsFontSize * 2, "          F = Remove All Balls", controlsFont);
+        drawText(g, 1, controlsFontSize * 3, "          T = Add Ball", controlsFont);
+        drawText(g, 1, controlsFontSize * 4, "        A/D = Move Player", controlsFont);
+        drawText(g, 1, controlsFontSize * 5, "        I/O = Save / Load", controlsFont);
+
+    }
+
+    private void drawText(Graphics g, int x, int y, String text, Font font) {
+        g.setFont(font);
+        g.drawString(text, x, y);
     }
 
     // EFFECTS: Saves data about the world onto a JSON file

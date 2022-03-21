@@ -2,10 +2,10 @@ package persistence;
 
 import model.util.Vector2;
 import org.junit.jupiter.api.Test;
-import ui.demo.ConsoleDemo;
-import ui.object.World;
+import ui.demo.JuggleDemo;
 import ui.object.Ball;
 import ui.object.Player;
+import ui.object.World;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,9 +31,9 @@ public class JsonReaderTest {
         try {
             World world = JsonReader.readWorld("./data/testReaderDefaultConsoleWorld.json");
             assertTrue(world.getSize()
-                    .equals(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows)));
+                    .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()
-                    .equals(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows)));
+                    .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getTopLeft()
                     .equals(new Vector2(0, 0)));
             assertEquals(0, world.getWorldObjects().size());
@@ -54,9 +54,9 @@ public class JsonReaderTest {
         try {
             World world = JsonReader.readWorld("./data/testReaderGeneralConsoleWorld.json");
             assertTrue(world.getSize()
-                    .equals(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows)));
+                    .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()
-                    .equals(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows)));
+                    .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getTopLeft()
                     .equals(new Vector2(0, 0)));
             assertTrue( world.getGravityForce().equals(new Vector2(0, 9.81f)));

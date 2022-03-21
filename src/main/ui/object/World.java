@@ -1,15 +1,11 @@
 package ui.object;
 
 
-import com.googlecode.lanterna.screen.Screen;
 import model.collider.Collider;
+import model.util.Vector2;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Savable;
-import ui.object.Ball;
-import ui.object.Player;
-import model.util.Vector2;
-import ui.object.RigidBody2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,10 +32,10 @@ public class World implements Savable {
         this.bottomRight = new Vector2(size.getX(), size.getY()); // screen height, screen width
 
         worldObjects = new ArrayList<>();
-        gravityForce = new Vector2(0, 9.81f);
+        gravityForce = new Vector2(0, 50f);
 
         // Change this in the future for games that don't need players
-        player = new Player(new Vector2(1, 35),
+        player = new Player(new Vector2(1, size.getY() - 50),
                             new Vector2(0, 0),
                             new Vector2(0, 0));
     }
@@ -94,7 +90,7 @@ public class World implements Savable {
         if (key == 84) { // t
             // make it spawn at mouse position too if mouse is on screen
             Ball ball = new Ball(new Vector2(60, 3),
-                    new Vector2((float) Math.random() * 22 - 11, 0),
+                    new Vector2((float) Math.random() * 100 - 50, 0),
                     new Vector2(0, 0));
 
             worldObjects.add(ball);
@@ -107,7 +103,7 @@ public class World implements Savable {
 
     // draws the world on the screen
     // MODIFIES: g
-    // EFFECTS: Draws all physical objects and the player on the terminal screen.
+    // EFFECTS: Draws all physical objects and the player on the screen.
     public void draw(Graphics g) {
 
         if (player != null) {
@@ -116,21 +112,6 @@ public class World implements Savable {
 
         for (Ball object : worldObjects) {
             object.draw(g);
-        }
-
-    }
-
-    // draws the world on the terminal
-    // MODIFIES: screen
-    // EFFECTS: Draws all physical objects and the player on the terminal screen.
-    public void drawTerminal(Screen screen) {
-
-        if (player != null) {
-            player.drawTerminal(screen);
-        }
-
-        for (Ball object : worldObjects) {
-            object.drawTerminal(screen);
         }
 
     }

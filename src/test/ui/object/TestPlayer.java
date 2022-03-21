@@ -1,13 +1,9 @@
 package ui.object;
 
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import model.collider.ColliderRect;
 import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,7 +20,7 @@ public class TestPlayer {
     }
 
     @Test
-    void testConstructor() throws IOException {
+    void testConstructor() {
         assertTrue(body.getPosition().equals(new Vector2(1f, 2f)));
         assertTrue(body.getVelocity().equals(new Vector2(2f, 3f)));
         assertTrue(body.getForce().equals(new Vector2(10f, 10f)));
@@ -34,10 +30,6 @@ public class TestPlayer {
         assertEquals(1f, rect.getHeight());
         assertEquals(1f, rect.getWidth());
 
-        // for UI code coverage (as exempted from rubric)
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen = terminalFactory.createScreen();
-        body.drawTerminal(screen);
     }
 
     @Test

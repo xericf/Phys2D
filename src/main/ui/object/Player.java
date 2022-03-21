@@ -1,18 +1,14 @@
 package ui.object;
 
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.screen.Screen;
 import model.collider.ColliderRect;
 import model.util.Vector2;
-import ui.demo.ConsoleDemo;
-import model.util.Coordinate;
 
 import java.awt.*;
 
 // Represents a physical object that could be controlled by the user
 public class Player extends RigidBody2D {
 
-    public static final float moveVelocity = 25f;
+    public static final float moveVelocity = 150f;
     private float width = 1f;
     private float height = 1f;
 
@@ -52,15 +48,6 @@ public class Player extends RigidBody2D {
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillRect((int) position.getX(), (int) position.getY(), 100, 20);
-    }
-
-    // Draws the player
-    // MODIFIES: Screen
-    // EFFECTS: draws a player on the terminal
-    @Override
-    public void drawTerminal(Screen screen) {
-        Coordinate coordinate = new Coordinate((int) position.getX(), (int) position.getY());
-        ConsoleDemo.drawAtCoordinate(screen, coordinate, '█', TextColor.ANSI.BLUE);
     }
 
     public ColliderRect getCollider() {

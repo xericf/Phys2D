@@ -1,14 +1,11 @@
 package ui.object;
 
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestRigidBody2D {
@@ -31,10 +28,6 @@ public class TestRigidBody2D {
         // for simple setForce coverage
         body.setForce(new Vector2(10f, 10f));
 
-        // for UI code coverage (as exempted from rubric)
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen = terminalFactory.createScreen();
-        body.drawTerminal(screen);
     }
 
     @Test

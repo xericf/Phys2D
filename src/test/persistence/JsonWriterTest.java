@@ -2,22 +2,21 @@ package persistence;
 
 import model.util.Vector2;
 import org.junit.jupiter.api.Test;
-import ui.demo.ConsoleDemo;
-import ui.object.World;
+import ui.demo.JuggleDemo;
 import ui.object.Ball;
 import ui.object.Player;
+import ui.object.World;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JsonWriterTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            World world = new World(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows));
+            World world = new World(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight));
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.openWriter();
             fail("IOException was expected");
@@ -27,9 +26,9 @@ public class JsonWriterTest {
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    void testWriterEmptyWorld() {
         try {
-            World world = new World(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows));
+            World world = new World(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight));
             JsonWriter writer = new JsonWriter("./data/testWriterDefaultConsoleWorld.json");
             writer.openWriter();
             writer.write(world);
@@ -37,9 +36,9 @@ public class JsonWriterTest {
 
             world = JsonReader.readWorld("./data/testWriterDefaultConsoleWorld.json");
             assertTrue(world.getSize()
-                    .equals(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows)));
+                    .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()
-                    .equals(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows)));
+                    .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getTopLeft()
                     .equals(new Vector2(0, 0)));
             assertEquals(0, world.getWorldObjects().size());
@@ -56,7 +55,7 @@ public class JsonWriterTest {
 
 
     @Test
-    void testWriterGeneralWorkroom() {
+    void testWriterGeneralWorld() {
         try {
             World world = makeGeneralWorld();
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralConsoleWorld.json");
@@ -65,9 +64,9 @@ public class JsonWriterTest {
             writer.closeWriter();
 
             assertTrue(world.getSize()
-                    .equals(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows)));
+                    .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()
-                    .equals(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows)));
+                    .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getTopLeft()
                     .equals(new Vector2(0, 0)));
             assertTrue( world.getGravityForce().equals(new Vector2(0, 9.81f)));
@@ -96,7 +95,7 @@ public class JsonWriterTest {
     }
 
     public static World makeGeneralWorld() {
-        World world = new World(new Vector2(ConsoleDemo.defaultColumns, ConsoleDemo.defaultRows));
+        World world = new World(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight));
         world.setPlayer(new Player(new Vector2(40, 35),
                 new Vector2(25, 0),
                 new Vector2(0, 0)));

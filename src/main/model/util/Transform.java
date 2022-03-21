@@ -1,19 +1,18 @@
 package model.util;
-/*
+
 // Holds properties pertaining to the transform of an object
 public class Transform {
     private Vector2 position;
     private Vector2 scale;
-    private Vector2 rotation;
+    private float rotation;
 
     // Constructor for transform
     // EFFECTS: Creates a transform object with a given position,
-    // sets the scale to 1 m x 1 m and the object to have no
-    // rotation
-    public Transform(Vector2 position) {
+    // and given scale and rotation around the z axis.
+    public Transform(Vector2 position, Vector2 scale, float rotation) {
         this.position = position;
         this.scale = new Vector2(1, 1);
-        this.rotation = new Vector2(0, 0);
+        this.rotation = rotation;
     }
 
     public Vector2 getPosition() {
@@ -32,18 +31,27 @@ public class Transform {
         this.scale = scale;
     }
 
-    public Vector2 getRotation() {
+    public float getRotation() {
         return rotation;
     }
 
-    public void setRotation(Vector2 rotation) {
+    public void setRotation(float rotation) {
         this.rotation = rotation;
     }
 
-    public boolean equals(Transform transform) {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Transform transform = (Transform) obj;
         return position.equals(transform.getPosition())
                 && scale.equals(transform.getScale())
-                && rotation.equals(transform.getRotation());
+                && rotation == transform.getRotation();
     }
 }
-*/
+

@@ -1,7 +1,5 @@
 package ui.object;
 
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import model.collider.ColliderCircle;
 import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,10 +31,6 @@ public class TestBall {
         assertTrue(circle.getCenter().equals(body.getPosition()));
         assertEquals(1f, circle.getRadius());
 
-        // Code coverage for UI (Rubric should exempt this)
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen = terminalFactory.createScreen();
-        body.drawTerminal(screen);
 
     }
 

@@ -1,11 +1,7 @@
 package ui.object;
 
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.screen.Screen;
 import model.collider.ColliderCircle;
 import model.util.Vector2;
-import ui.demo.ConsoleDemo;
-import model.util.Coordinate;
 
 import java.awt.*;
 
@@ -31,15 +27,6 @@ public class Ball extends RigidBody2D {
         g.setColor(Color.ORANGE);
         g.fillArc((int) position.getX(), (int) position.getY(),
                 25, 25,0, 360);
-    }
-
-    // Draws the rigid body
-    // MODIFIES: screen
-    // EFFECTS: Draws the rigid body on the terminal represented by a white circular shape
-    @Override
-    public void drawTerminal(Screen screen) {
-        Coordinate coordinate = new Coordinate((int) position.getX(), (int) position.getY());
-        ConsoleDemo.drawAtCoordinate(screen, coordinate, '⬤', TextColor.ANSI.WHITE);
     }
 
     public ColliderCircle getCollider() {
