@@ -1,7 +1,7 @@
 package persistence;
 
 import org.json.JSONObject;
-import ui.World;
+import ui.object.World;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

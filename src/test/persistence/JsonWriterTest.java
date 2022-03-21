@@ -2,10 +2,8 @@ package persistence;
 
 import model.util.Vector2;
 import org.junit.jupiter.api.Test;
-import persistence.JsonReader;
-import persistence.JsonWriter;
-import ui.ConsoleDemo;
-import ui.World;
+import ui.demo.ConsoleDemo;
+import ui.object.World;
 import ui.object.Ball;
 import ui.object.Player;
 

@@ -4,8 +4,10 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.collider.ColliderCircle;
 import model.util.Vector2;
-import ui.ConsoleDemo;
+import ui.demo.ConsoleDemo;
 import model.util.Coordinate;
+
+import java.awt.*;
 
 // Circle physics object, not deformable.
 public class Ball extends RigidBody2D {
@@ -19,6 +21,16 @@ public class Ball extends RigidBody2D {
         super(position, velocity, force);
 
         collider = new ColliderCircle(position, 1);
+    }
+
+    // Draws the rigid body
+    // MODIFIES: g
+    // EFFECTS: Draws the rigid body on the screen represented by a circular shape of a particular color
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(Color.ORANGE);
+        g.fillArc((int) position.getX(), (int) position.getY(),
+                25, 25,0, 360);
     }
 
     // Draws the rigid body

@@ -5,8 +5,10 @@ import com.googlecode.lanterna.screen.Screen;
 import persistence.Savable;
 import model.util.Vector2;
 import org.json.JSONObject;
-import ui.ConsoleDemo;
+import ui.demo.ConsoleDemo;
 import model.util.Coordinate;
+
+import java.awt.*;
 
 // Represents a physical rigid body that does not change or deform shape
 public class RigidBody2D implements Savable {
@@ -27,6 +29,14 @@ public class RigidBody2D implements Savable {
         this.position = position;
         this.velocity = velocity;
         this.force = force;
+    }
+
+    // Draws the rigid body
+    // MODIFIES: g
+    // EFFECTS: Draws the rigid body on the screen represented by a rectangle shape
+    public void draw(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillRect((int) position.getX(), (int) position.getY(), 25, 25);
     }
 
     // Draws the rigid body

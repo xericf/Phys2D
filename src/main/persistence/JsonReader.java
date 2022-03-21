@@ -3,7 +3,7 @@ package persistence;
 import model.util.Vector2;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import ui.World;
+import ui.object.World;
 import ui.object.Ball;
 import ui.object.Player;
 

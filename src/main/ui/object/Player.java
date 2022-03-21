@@ -4,8 +4,10 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.collider.ColliderRect;
 import model.util.Vector2;
-import ui.ConsoleDemo;
+import ui.demo.ConsoleDemo;
 import model.util.Coordinate;
+
+import java.awt.*;
 
 // Represents a physical object that could be controlled by the user
 public class Player extends RigidBody2D {
@@ -30,17 +32,26 @@ public class Player extends RigidBody2D {
     // MODIFIES: this
     // EFFECTS: Allows for player to change velocity to move to the left or right
     // based on key press
-    public void handleInput(Character c) {
+    public void handleInput(int key) {
 
-        switch (c.charValue()) {
-            case 'd':
+        switch (key) {
+            case 68: // d
                 velocity.setX(moveVelocity);
                 break;
-            case 'a':
+            case 65: // a
                 velocity.setX(-moveVelocity);
                 break;
         }
 
+    }
+
+    // Draws the player
+    // MODIFIES: Screen
+    // EFFECTS: draws a player on the screen
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillRect((int) position.getX(), (int) position.getY(), 100, 20);
     }
 
     // Draws the player

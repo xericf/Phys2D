@@ -1,4 +1,4 @@
-package ui;
+package ui.demo;
 
 
 import com.googlecode.lanterna.TerminalSize;
@@ -12,6 +12,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import model.util.Coordinate;
 import model.util.Vector2;
+import ui.object.World;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -7,6 +7,7 @@ import ui.object.Player;
 import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.object.World;
 
 import java.io.IOException;
 

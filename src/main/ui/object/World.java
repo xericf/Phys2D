@@ -1,4 +1,4 @@
-package ui;
+package ui.object;
 
 
 import com.googlecode.lanterna.screen.Screen;
@@ -11,6 +11,7 @@ import ui.object.Player;
 import model.util.Vector2;
 import ui.object.RigidBody2D;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 // Represents a physical world
@@ -88,21 +89,35 @@ public class World implements Savable {
     // MODIFIES: this
     // EFFECTS: Spawns new Circle physics object on given keycode with a random x velocity,
     // forwards keyCode into player for additional player-specific checks
-    public void handleInput(Character c) {
+    public void handleInput(int key) {
 
-        char keyValue = c.charValue();
-        if (keyValue == 't') {
+        if (key == 84) { // t
             // make it spawn at mouse position too if mouse is on screen
             Ball ball = new Ball(new Vector2(60, 3),
                     new Vector2((float) Math.random() * 22 - 11, 0),
                     new Vector2(0, 0));
 
             worldObjects.add(ball);
-        } else if (keyValue == 'f') {
+        } else if (key == 70) { // F
             worldObjects.clear();
         }
 
-        player.handleInput(c);
+        player.handleInput(key);
+    }
+
+    // draws the world on the screen
+    // MODIFIES: g
+    // EFFECTS: Draws all physical objects and the player on the terminal screen.
+    public void draw(Graphics g) {
+
+        if (player != null) {
+            player.draw(g);
+        }
+
+        for (Ball object : worldObjects) {
+            object.draw(g);
+        }
+
     }
 
     // draws the world on the terminal
