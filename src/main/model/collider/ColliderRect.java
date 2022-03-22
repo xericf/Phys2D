@@ -33,35 +33,55 @@ public class ColliderRect extends Collider {
 
     @Override
     public ColliderPoints findCollision(ColliderCircle colliderCircle, Transform transformCircle) {
-        // ask professor about the redundency of the collision detectors
+
+        float boxWidthOffset = width / 2;
+        float boxHeightOffset = height / 2;
 
 
+        float bxLeft = center.getX() - boxWidthOffset;
+        float byTop = center.getY() - boxHeightOffset;
+        float bxRight = center.getX() + boxWidthOffset;
+        float byBot = center.getY() + boxHeightOffset;
 
-        return null;
+        Vector2 centerCircle = colliderCircle.getCenter();
+        float radius = colliderCircle.getRadius();
+        float cx = centerCircle.getX();
+        float cy = centerCircle.getY();
+
+        // See ColliderCircle.findCollision for an explanation to pointX and pointY
+        float pointX = Math.max(bxLeft, Math.min(bxRight, cx));
+        float pointY = Math.max(byTop, Math.min(byBot, cy));
+
+        Vector2 closestPoint = new Vector2(pointX, pointY);
+        float hypotenuse = Vector2.calculateHypotenuse(center, closestPoint);
+        return hypotenuse < radius ? new ColliderPoints(center, closestPoint) : null;
+
     }
 
     @Override
     public ColliderPoints findCollision(ColliderRect colliderRect, Transform transformRect) {
-        // the circle is intersecting with a box when the box contains some point of the circle.
-        // That is to say, when:
-        // boxX - width/2 - radius < circleX < boxX + width/2 + radius
-        // boxY - height/2 - radius < circleY < boxY + width/2 + radius
-/*
-        float bx = colliderRect.getCenter().getX();
-        float by = colliderRect.getCenter().getY();
+
+        Vector2 otherCenter = colliderRect.getCenter();
+        float bx = otherCenter.getX();
+        float by = otherCenter.getY();
         float boxWidthOffset = colliderRect.getWidth() / 2;
         float boxHeightOffset = colliderRect.getHeight() / 2;
 
         float cx = center.getX();
         float cy = center.getY();
+        float currentWidthOffset = width / 2;
+        float currentHeightOffset = height / 2;
 
-        if (bx - boxWidthOffset - radius < cx
-                && cx < bx + boxWidthOffset + radius
-                && by - boxHeightOffset - radius < cy
-                && cy < by + boxHeightOffset + radius) {
-            return null;
+        // If some point of the current colliderRect intersects with another colliderRect
+        // then calculate a new collision based on the two centers
+        // TODO: Think of a new method to add torque and rotation, because this only works for 0 rotation objects.
+        if (bx - boxWidthOffset - currentWidthOffset < cx
+                && cx < bx + boxWidthOffset + currentWidthOffset
+                && by - boxHeightOffset - currentHeightOffset < cy
+                && cy < by + boxHeightOffset + currentHeightOffset) {
+            return new ColliderPoints(center, otherCenter);
         }
-        */
+
 
         return null;
     }
