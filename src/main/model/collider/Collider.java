@@ -1,21 +1,18 @@
 package model.collider;
 
+import model.util.Transform;
 import model.util.Vector2;
 
 // Collider class for collision detection between physical objects
 public abstract class Collider {
 
-    /*
-    protected boolean anchored;
+    // EFFECTS: Finds the collusion points between the current collider object and a circular
+    // collider with a given transform.
+    public abstract ColliderPoints findCollision(ColliderCircle colliderCircle, Transform transformCircle);
 
-    public boolean isAnchored() {
-        return anchored;
-    }
-
-    public void setAnchored(boolean anchored) {
-        this.anchored = anchored;
-    }
-     */
+    // EFFECTS: Finds the collusion points between the current collider object and a rectangular
+    // collider with a given transform.
+    public abstract ColliderPoints findCollision(ColliderRect colliderRect, Transform transformRect);
 
     // Checks if a ColliderRect is within a box built by topLeft and bottomRight points
     // EFFECTS: If all points of a ColliderRect are within the rectangle defined by the topLeft

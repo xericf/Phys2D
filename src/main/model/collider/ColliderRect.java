@@ -1,5 +1,6 @@
 package model.collider;
 
+import model.util.Transform;
 import model.util.Vector2;
 
 // Provides properties necessary for basic collision detection of rectangular shaped objects
@@ -28,5 +29,15 @@ public class ColliderRect extends Collider {
 
     public float getWidth() {
         return width;
+    }
+
+    @Override
+    public ColliderPoints findCollision(ColliderCircle colliderCircle, Transform transformCircle) {
+        return null;
+    }
+
+    @Override
+    public ColliderPoints findCollision(ColliderRect colliderRect, Transform transformRect) {
+        return null;
     }
 }

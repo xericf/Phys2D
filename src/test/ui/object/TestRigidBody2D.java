@@ -14,7 +14,7 @@ public class TestRigidBody2D {
 
     @BeforeEach
     void runBefore() {
-       body = new RigidBody2D(new Vector2(1f, 2f),
+       body = new Ball(new Vector2(1f, 2f),
                             new Vector2(2f, 3f),
                             new Vector2(10f, 10f));
     }

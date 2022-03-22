@@ -8,8 +8,9 @@ import persistence.Savable;
 import java.awt.*;
 
 // Represents a physical rigid body that does not change or deform shape
-public class RigidBody2D implements Savable {
+public abstract class RigidBody2D implements Savable {
 
+    // TODO: add anchored capabilities
     protected Vector2 position;
     protected Vector2 velocity;
     protected Vector2 force; // net force
@@ -30,11 +31,8 @@ public class RigidBody2D implements Savable {
 
     // Draws the rigid body
     // MODIFIES: g
-    // EFFECTS: Draws the rigid body on the screen represented by a rectangle shape
-    public void draw(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.fillRect((int) position.getX(), (int) position.getY(), 25, 25);
-    }
+    // EFFECTS: Draws the rigid body on the screen represented by a shape.
+    public abstract void draw(Graphics g);
 
 
     // Updates the rigid body's properties every tick

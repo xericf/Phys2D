@@ -90,6 +90,19 @@ public class Vector2 implements Savable {
         return this;
     }
 
+    public static float calculateHypotenuse(Vector2 a, Vector2 b) {
+        float ax = a.getX();
+        float ay = a.getY();
+        float bx = b.getX();
+        float by = b.getY();
+
+        float sideX = ax - bx;
+        float sideY = ay - by;
+
+        // Hypotenuse magnitude
+        return (float) Math.sqrt((sideX * sideX) + (sideY * sideY));
+    }
+
     public float getX() {
         return valX;
     }
