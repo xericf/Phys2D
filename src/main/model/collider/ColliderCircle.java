@@ -46,27 +46,32 @@ public class ColliderCircle extends Collider {
 
     @Override
     public ColliderPoints findCollision(ColliderRect colliderRect, Transform transformRect) {
-
         // the circle is intersecting with a box when the box contains some point of the circle.
-        // That is to say, when:
-        // boxX - width/2 - radius < circleX < boxX + width/2 + radius
-        // boxY - height/2 - radius < circleY < boxY + width/2 + radius
 
-        float bx = colliderRect.getCenter().getX();
-        float by = colliderRect.getCenter().getY();
         float boxWidthOffset = colliderRect.getWidth() / 2;
         float boxHeightOffset = colliderRect.getHeight() / 2;
 
+        float bxLeft = colliderRect.getCenter().getX() - boxWidthOffset;
+        float byTop = colliderRect.getCenter().getY() - boxHeightOffset;
+        float bxRight = colliderRect.getCenter().getX() + boxWidthOffset;
+        float byBot = colliderRect.getCenter().getY() + boxHeightOffset;
         float cx = center.getX();
         float cy = center.getY();
 
-        if (bx - boxWidthOffset - radius < cx
-                && cx < bx + boxWidthOffset + radius
-                && by - boxHeightOffset - radius < cy
-                && cy < by + boxHeightOffset + radius) {
-            return null;
-        }
+        // Closest points to the center
+        // Essentially squeezes the potential points
+        // Case 1: Rectangle intersects to the left of the circle center
+        // Solution: Take the rightmost point of the rectangle, or the x-center of the circle if intersecting the
+        //           center.
+        // Case 2: Rectangle intersects to the right of the circle center
+        // Solution: Take the leftmost point of the rectangle, or the x-center of the circle if intersecting the
+        //          center.
+        float pointX = Math.max(bxLeft, Math.min(bxRight, cx));
+        // Without loss of generalization, the same formula applies to the Y component, too.
+        float pointY = Math.max(byTop, Math.min(byBot, cy));
 
-        return null;
+        Vector2 closestPoint = new Vector2(pointX, pointY);
+        float hypotenuse = Vector2.calculateHypotenuse(center, closestPoint);
+        return hypotenuse < radius ? new ColliderPoints(center, closestPoint) : null;
     }
 }
