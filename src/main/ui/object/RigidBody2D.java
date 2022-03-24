@@ -86,6 +86,10 @@ public abstract class RigidBody2D implements Savable {
         this.scale = scale;
     }
 
+    public void setPosition(Vector2 position) {
+        this.position = position; // needs to update collider object's position -- simply make them see eachother?
+    }
+
 
     @Override
     public JSONObject toJson() {

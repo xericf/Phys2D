@@ -9,10 +9,15 @@ import org.json.JSONObject;
 import persistence.Savable;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+// TODO: Create the most general world WITHOUT the MouseListener.
+
 // Represents a physical world
-public class World implements Savable {
+public class World implements Savable, MouseListener, MouseMotionListener {
 
     private ArrayList<Ball> worldObjects;
     private Player player;
@@ -140,22 +145,29 @@ public class World implements Savable {
 
         if (key == 84) { // t
             // make it spawn at mouse position too if mouse is on screen
-            Ball ball = new Ball(new Vector2(200, 80),
-                    new Vector2((float) Math.random() * 100 - 50, 0),
-                    new Vector2(0, 0),
-                    new Vector2(20, 20));
+            addBall(new Vector2(200, 80));
 
-//            Ball ball = new Ball(new Vector2(200, 80),
-//                    new Vector2((float) 0, 0),
-//                    new Vector2(0, 0),
-//                    new Vector2(20, 20));
-
-            worldObjects.add(ball);
         } else if (key == 70) { // F
             worldObjects.clear();
         }
 
         player.handleInput(key);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Adds a ball at a given position vector, and random x velocity, and returns the ball made.
+    private Ball addBall(Vector2 position) {
+        Ball ball = new Ball(position,
+                new Vector2((float) Math.random() * 100 - 50, 0),
+                new Vector2(0, 0),
+                new Vector2(20, 20));
+
+        worldObjects.add(ball);
+        return ball;
+    }
+
+    private void moveBall() {
+
     }
 
     // draws the world on the screen
@@ -223,6 +235,20 @@ public class World implements Savable {
         return (float) nanoSecs / 1000000000;
     }
 
+    private Ball heldBall;
+    private Vector2 lastMousePosition;
+
+    private Ball getBallAtMousePosition(int x, int y) {
+        Vector2 mousePosition = new Vector2(x, y);
+        for (Ball ball : worldObjects) {
+            if (Vector2.calculateHypotenuse(ball.getPosition(), mousePosition) < ball.getCollider().getRadius()) {
+                return ball;
+            }
+        }
+        return null;
+    }
+
+
 
     @Override
     public JSONObject toJson() {
@@ -245,5 +271,56 @@ public class World implements Savable {
         jsonObject.put("bottomRight", bottomRight.toJson());
 
         return jsonObject;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // useless
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        heldBall = getBallAtMousePosition(e.getX(), e.getY());
+        if (heldBall == null) {
+            // if null, make new ball and set it to heldBall
+            heldBall = addBall(new Vector2(e.getX(), e.getY()));
+            lastMousePosition = new Vector2(e.getX(), e.getY());
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (heldBall != null) {
+            //
+        }
+
+        heldBall = null;
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Useless
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Useless
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (heldBall != null) {
+            heldBall.setPosition(new Vector2(e.getX(), e.getY()));
+
+            // we do not want the vectors to be the same object
+            lastMousePosition = new Vector2(e.getX(), e.getY());
+        }
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // Useless
     }
 }

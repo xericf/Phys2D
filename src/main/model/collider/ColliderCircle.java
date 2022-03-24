@@ -1,6 +1,7 @@
 package model.collider;
 
 import model.util.Vector2;
+import ui.object.RigidBody2D;
 
 // Provides properties necessary for basic collision detection of circular objects
 public class ColliderCircle extends Collider {
@@ -10,8 +11,8 @@ public class ColliderCircle extends Collider {
     // Constructor for a rectangular collider
     // EFFECTS: Constructs a ColliderCircle centered at a given position,
     // with a certain radius
-    public ColliderCircle(Vector2 position, float radius) {
-        super(position);
+    public ColliderCircle(RigidBody2D rigidBody2D, float radius) {
+        super(rigidBody2D);
         this.radius = radius;
     }
 
@@ -26,13 +27,13 @@ public class ColliderCircle extends Collider {
         // is less than the radius of the two circles
 
         float radiusSum = radius + colliderCircle.getRadius();
-        float hypotenuse = Vector2.calculateHypotenuse(center, colliderCircle.getCenter());
+        float hypotenuse = Vector2.calculateHypotenuse(getCenter(), colliderCircle.getCenter());
         if (hypotenuse <= radiusSum) {
             // We are putting in the center of the two collider circles as the collision points
             // as a generalization of the points that are furthest intercepting because the normalized
             // slope vector will the same regardless of using a point on the edge of the both circles that is
             // the furthest intersecting.
-            return new ColliderPoints(center, colliderCircle.getCenter());
+            return new ColliderPoints(getCenter(), colliderCircle.getCenter());
         }
 
         return null;
@@ -48,33 +49,33 @@ public class ColliderCircle extends Collider {
         float byTop = colliderRect.getCenter().getY() - boxHeightOffset;
         float bxRight = colliderRect.getCenter().getX() + boxWidthOffset;
         float byBot = colliderRect.getCenter().getY() + boxHeightOffset;
-        float cx = center.getX();
-        float cy = center.getY();
+        float cx = getCenter().getX();
+        float cy = getCenter().getY();
 
         // Closest points to the center of circle
         float pointX = Math.max(bxLeft, Math.min(bxRight, cx));
         float pointY = Math.max(byTop, Math.min(byBot, cy));
         Vector2 closestToCenter = new Vector2(pointX, pointY);
-        float hypotenuse = Vector2.calculateHypotenuse(center, closestToCenter);
+        float hypotenuse = Vector2.calculateHypotenuse(getCenter(), closestToCenter);
 
         // If hypotenuse <= radius, get point on the radius furthest in the rectangle
         if (hypotenuse <= radius) {
             if (pointX == cx) {
-                return new ColliderPoints(center, new Vector2(cx, cy < pointY ? cy + radius : cy - radius));
+                return new ColliderPoints(getCenter(), new Vector2(cx, cy < pointY ? cy + radius : cy - radius));
             }
             float slope = (pointY - cy) / (pointX - cx);
             // x = (radius^2 / (slope^2 + 1))
             float radiusX = (float) Math.sqrt((radius * radius) / (slope * slope + 1));
             float radiusY = radiusX * slope;
-            return new ColliderPoints(center, new Vector2(radiusX, radiusY));
+            return new ColliderPoints(getCenter(), new Vector2(radiusX, radiusY));
         }
         return null;
     }
 
     @Override
     public Vector2 calculateBorderInteraction(Vector2 velocity, Vector2 topLeft, Vector2 bottomRight) {
-        float centerX = center.getX();
-        float centerY = center.getY();
+        float centerX = getCenter().getX();
+        float centerY = getCenter().getY();
 
         if ((centerX - radius < topLeft.getX() && velocity.getX() < 0)
                 || (centerX + radius > bottomRight.getX() && velocity.getX() > 0)) {

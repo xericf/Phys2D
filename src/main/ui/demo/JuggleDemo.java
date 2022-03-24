@@ -45,6 +45,9 @@ public class JuggleDemo extends JPanel implements Runnable {
         Vector2 worldSize = new Vector2(defaultWidth, defaultHeight);
         world = new World(worldSize);
         jsonWriter = new JsonWriter(juggleDemoPath);
+
+        addMouseListener(world);
+        addMouseMotionListener(world);
     }
 
 

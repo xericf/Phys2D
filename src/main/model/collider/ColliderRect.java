@@ -1,6 +1,7 @@
 package model.collider;
 
 import model.util.Vector2;
+import ui.object.RigidBody2D;
 
 // Provides properties necessary for basic collision detection of rectangular shaped objects
 public class ColliderRect extends Collider {
@@ -11,8 +12,8 @@ public class ColliderRect extends Collider {
     // Constructor for a rectangular collider
     // EFFECTS: Constructs a ColliderRect centered at a given position,
     // with a certain width and height.
-    public ColliderRect(Vector2 position, float width, float height) {
-        super(position);
+    public ColliderRect(RigidBody2D rigidBody2D, float width, float height) {
+        super(rigidBody2D);
         this.width = width;
         this.height = height;
     }
@@ -30,10 +31,10 @@ public class ColliderRect extends Collider {
         float boxWidthOffset = width / 2;
         float boxHeightOffset = height / 2;
 
-        float bxLeft = center.getX() - boxWidthOffset;
-        float byTop = center.getY() - boxHeightOffset;
-        float bxRight = center.getX() + boxWidthOffset;
-        float byBot = center.getY() + boxHeightOffset;
+        float bxLeft = getCenter().getX() - boxWidthOffset;
+        float byTop = getCenter().getY() - boxHeightOffset;
+        float bxRight = getCenter().getX() + boxWidthOffset;
+        float byBot = getCenter().getY() + boxHeightOffset;
 
         Vector2 centerCircle = colliderCircle.getCenter();
         float radius = colliderCircle.getRadius();
@@ -43,17 +44,17 @@ public class ColliderRect extends Collider {
         float pointX = Math.max(bxLeft, Math.min(bxRight, cx));
         float pointY = Math.max(byTop, Math.min(byBot, cy));
         Vector2 closestToCenter = new Vector2(pointX, pointY);
-        float hypotenuse = Vector2.calculateHypotenuse(center, closestToCenter);
+        float hypotenuse = Vector2.calculateHypotenuse(getCenter(), closestToCenter);
 
         if (hypotenuse <= radius) {
             if (pointX == cx) {
-                return new ColliderPoints(center, new Vector2(cx, cy < pointY ? cy + radius : cy - radius));
+                return new ColliderPoints(getCenter(), new Vector2(cx, cy < pointY ? cy + radius : cy - radius));
             }
             float slope = (pointY - cy) / (pointX - cx);
             // x = (radius^2 / (slope^2 + 1))
             float radiusX = (float) Math.sqrt((radius * radius) / (slope * slope + 1));
             float radiusY = radiusX * slope;
-            return new ColliderPoints(center, new Vector2(radiusX, radiusY));
+            return new ColliderPoints(getCenter(), new Vector2(radiusX, radiusY));
         }
         return null;
     }
@@ -67,8 +68,8 @@ public class ColliderRect extends Collider {
         float boxWidthOffset = colliderRect.getWidth() / 2;
         float boxHeightOffset = colliderRect.getHeight() / 2;
 
-        float cx = center.getX();
-        float cy = center.getY();
+        float cx = getCenter().getX();
+        float cy = getCenter().getY();
         float currentWidthOffset = width / 2;
         float currentHeightOffset = height / 2;
 
@@ -79,7 +80,7 @@ public class ColliderRect extends Collider {
                 && cx < bx + boxWidthOffset + currentWidthOffset
                 && by - boxHeightOffset - currentHeightOffset < cy
                 && cy < by + boxHeightOffset + currentHeightOffset) {
-            return new ColliderPoints(center, otherCenter);
+            return new ColliderPoints(getCenter(), otherCenter);
         }
 
 
@@ -88,8 +89,8 @@ public class ColliderRect extends Collider {
 
     @Override
     public Vector2 calculateBorderInteraction(Vector2 velocity, Vector2 topLeft, Vector2 bottomRight) {
-        float centerX = center.getX();
-        float centerY = center.getY();
+        float centerX = getCenter().getX();
+        float centerY = getCenter().getY();
 
         if ((centerX - (width / 2) < topLeft.getX() && velocity.getX() < 0)
                 || (centerX + (width / 2) > bottomRight.getX() && velocity.getX() > 0)) {

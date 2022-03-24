@@ -1,15 +1,16 @@
 package model.collider;
 
 import model.util.Vector2;
+import ui.object.RigidBody2D;
 
 // Collider class for collision detection between physical objects
 public abstract class Collider {
 
-    protected Vector2 center;
+    protected RigidBody2D attachedRigidBody;
 
     // EFFECTS: Constructs a collider with a given center position.
-    public Collider(Vector2 center) {
-        this.center = center;
+    public Collider(RigidBody2D rigidBody2D) {
+        attachedRigidBody = rigidBody2D;
     }
 
     // TODO: Currently the findCollisions methods do not find the true deepest intersecting points
@@ -28,11 +29,7 @@ public abstract class Collider {
     public abstract ColliderPoints findCollision(ColliderRect colliderRect);
 
     public Vector2 getCenter() {
-        return center;
-    }
-
-    public void setCenter(Vector2 center) {
-        this.center = center;
+        return attachedRigidBody.getPosition();
     }
 
     // Checks if a Collider is within a box built by topLeft and bottomRight points

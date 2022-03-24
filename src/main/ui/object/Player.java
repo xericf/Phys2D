@@ -21,7 +21,7 @@ public class Player extends RigidBody2D {
     public Player(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale) {
         super(position, velocity, force, scale);
 
-        collider = new ColliderRect(position, scale.getX(), scale.getY()); // TODO: connect scale and collider better
+        collider = new ColliderRect(this, scale.getX(), scale.getY()); // TODO: connect scale and collider better
     }
 
     // Provides pressing certain keys with player-specific functionality

@@ -18,7 +18,7 @@ public class Ball extends RigidBody2D {
 
         // approximation of radius, divided by 4 because scale is width and height, and radius is half a circle's
         // diameter
-        collider = new ColliderCircle(position, (scale.getX() + scale.getY()) / 4);
+        collider = new ColliderCircle(this, (scale.getX() + scale.getY()) / 4);
     }
 
 
