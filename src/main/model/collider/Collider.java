@@ -1,6 +1,5 @@
 package model.collider;
 
-import model.util.Transform;
 import model.util.Vector2;
 
 // Collider class for collision detection between physical objects
@@ -36,28 +35,11 @@ public abstract class Collider {
         this.center = center;
     }
 
-    // Checks if a ColliderRect is within a box built by topLeft and bottomRight points
+    // Checks if a Collider is within a box built by topLeft and bottomRight points
     // EFFECTS: If all points of a ColliderRect are within the rectangle defined by the topLeft
-    // and bottomRight (x, y) coordinates, return true, false otherwise
-    public static boolean checkInBorders(ColliderRect rect, Vector2 topLeft, Vector2 bottomRight) {
-        Vector2 center =  rect.getCenter();
-        float centerX = center.getX();
-        float centerY = center.getY();
-
-        float width = rect.getWidth();
-        float height = rect.getHeight();
-
-        if (centerX - (width / 2) < topLeft.getX()
-                || centerX + (width / 2) > bottomRight.getX()
-                || centerY - (height / 2) < topLeft.getY()
-                || centerY + (height / 2) > bottomRight.getY()) {
-
-            return false;
-
-        }
-
-        return true;
-    }
+    // and bottomRight (x, y) coordinates, return a multiplier vector that would return the
+    // collider within the borders
+    public abstract Vector2 calculateBorderInteraction(Vector2 velocity, Vector2 topLeft, Vector2 bottomRight);
 
     // Updates the velocity of a collided object
     // EFFECTS: Calculates and modifies the velocity of a particular object based on if

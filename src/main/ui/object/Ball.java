@@ -30,8 +30,8 @@ public class Ball extends RigidBody2D {
         g.setColor(Color.ORANGE);
         float scaleX = scale.getX();
         float scaleY = scale.getY();
-        g.fillArc((int) (position.getX() - (scaleX / 2)),
-                (int) (position.getY() - (scaleY / 2)),
+        g.fillArc((int) (position.getX() - scaleX / 2), // subtract by radius
+                (int) (position.getY() - scaleY / 2),
                 (int) scaleX, (int) scaleY,0, 360);
     }
 

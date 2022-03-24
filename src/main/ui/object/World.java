@@ -1,7 +1,8 @@
 package ui.object;
 
 
-import model.collider.Collider;
+import model.collider.ColliderCircle;
+import model.collider.ColliderPoints;
 import model.util.Vector2;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +33,7 @@ public class World implements Savable {
         this.bottomRight = new Vector2(size.getX(), size.getY()); // screen height, screen width
 
         worldObjects = new ArrayList<>();
-        gravityForce = new Vector2(0, 50f);
+        gravityForce = new Vector2(0, 65f);
 
         // Change this in the future for games that don't need players
         player = new Player(new Vector2(150f, size.getY() - 50),
@@ -64,23 +65,72 @@ public class World implements Savable {
     // EFFECTS: inverts x or y velocity of any physical object if it has
     // collided with the border.
     public void checkCollisions() {
+        checkPlayerCollisions();
+        checkWorldObjectsCollisions();
+    }
 
+    // MODIFIES: this
+    // EFFECTS: Handles the collisions of the player and worldObjects
+    private void checkPlayerCollisions() {
         if (player != null && player.getCollider() != null) {
-            boolean withinBorders = Collider.checkInBorders(player.getCollider(), topLeft, bottomRight);
+            Vector2 newVelocity = player.getCollider()
+                    .calculateBorderInteraction(player.getVelocity(), topLeft, bottomRight);
+            player.setVelocity(newVelocity);
 
-            if (withinBorders == false) {
-                player.getVelocity().multiply(Vector2.invertX);
+            for (Ball object1 : worldObjects) {
+                ColliderPoints objectColliderPoints = object1.getCollider().findCollision(player.getCollider());
+                if (objectColliderPoints != null) {
+                    Vector2 normalSlope = objectColliderPoints.getNormalSlope();
+                    // TODO: Do this without mutating the velocity vectors for obvious reasons.
+                    // TODO: Instead of multiplying the velocity, merely ensure that the sign of X and Y
+                    // for the normal slope is the opposite of velocity
+                    // object1.setVelocity(Vector2.multiply(object1.getVelocity(), normalSlope));
+                    if ((normalSlope.getY() < 0 && object1.getVelocity().getY() < 0)
+                            || (normalSlope.getY() > 0 && object1.getVelocity().getY() > 0)) {
+                        object1.getVelocity().multiply(new Vector2(1, -1));
+                    }
+
+                }
+
             }
         }
+    }
 
-        for (Ball object1 : worldObjects) {
-            Collider.calculateVelocityCollision(object1.getVelocity(),
-                                                object1.getCollider(),
-                                                topLeft, bottomRight);
+    // MODIFIES: this
+    // EFFECTS: Handles collisions of all objects in worldObjects
+    private void checkWorldObjectsCollisions() {
+
+        // uses this method of for loop to save on half of the computation time
+        for (int objectAIdx = 0; objectAIdx < worldObjects.size(); objectAIdx++) {
+            Ball objectA = worldObjects.get(objectAIdx);
+            ColliderCircle colliderA = objectA.getCollider();
+            for (int objectBIdx = objectAIdx + 1; objectBIdx < worldObjects.size(); objectBIdx++) {
+                Ball objectB = worldObjects.get(objectBIdx);
+                ColliderCircle colliderB = objectB.getCollider();
+                if (objectB.equals(objectA)) {
+                    continue; // sanity check
+                }
+
+                ColliderPoints colliderPoints = colliderA.findCollision(colliderB);
+                if (colliderPoints != null) {
+                    Vector2 normalSlope = colliderPoints.getNormalSlope();
+                    // TODO: Make it reflect the velocity over the slope line for true bounce
+
+                    if ((normalSlope.getY() < 0 && objectA.getVelocity().getY() < 0)
+                            || (normalSlope.getY() > 0 && objectA.getVelocity().getY() > 0)) {
+                        objectA.getVelocity().multiply(new Vector2(1, -1));
+                        objectA.getVelocity().multiply(new Vector2(1, -1));
+                    }
+                }
+            }
+
+            Vector2 newVelocity = colliderA.calculateBorderInteraction(objectA.getVelocity(), topLeft, bottomRight);
+            objectA.setVelocity(newVelocity);
 
         }
-
     }
+
+
 
     // Provides pressing certain keys with functionality
     // MODIFIES: this
@@ -94,6 +144,11 @@ public class World implements Savable {
                     new Vector2((float) Math.random() * 100 - 50, 0),
                     new Vector2(0, 0),
                     new Vector2(20, 20));
+
+//            Ball ball = new Ball(new Vector2(200, 80),
+//                    new Vector2((float) 0, 0),
+//                    new Vector2(0, 0),
+//                    new Vector2(20, 20));
 
             worldObjects.add(ball);
         } else if (key == 70) { // F

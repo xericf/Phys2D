@@ -20,7 +20,7 @@ public class Vector2 implements Savable {
         this.valY = y;
     }
 
-    /*
+
     // Multiplies two 2-dimensional vectors, and produces a new vector
     // EFFECTS: Returns a new Vector2 object with the x value equal
     // to the product of the first and second vector's x value, and
@@ -32,7 +32,7 @@ public class Vector2 implements Savable {
 
         return product;
     }
-    */
+
 
     // Multiplies a 2-dimensional vectors and a value, and produces a new vector
     // EFFECTS: Returns a new 2-Dimensional vector equal to a certain

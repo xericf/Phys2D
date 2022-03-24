@@ -1,6 +1,5 @@
 package model.collider;
 
-import model.util.Transform;
 import model.util.Vector2;
 
 // Provides properties necessary for basic collision detection of circular objects
@@ -28,7 +27,7 @@ public class ColliderCircle extends Collider {
 
         float radiusSum = radius + colliderCircle.getRadius();
         float hypotenuse = Vector2.calculateHypotenuse(center, colliderCircle.getCenter());
-        if (radiusSum < hypotenuse) {
+        if (hypotenuse <= radiusSum) {
             // We are putting in the center of the two collider circles as the collision points
             // as a generalization of the points that are furthest intercepting because the normalized
             // slope vector will the same regardless of using a point on the edge of the both circles that is
@@ -70,6 +69,21 @@ public class ColliderCircle extends Collider {
             return new ColliderPoints(center, new Vector2(radiusX, radiusY));
         }
         return null;
+    }
+
+    @Override
+    public Vector2 calculateBorderInteraction(Vector2 velocity, Vector2 topLeft, Vector2 bottomRight) {
+        float centerX = center.getX();
+        float centerY = center.getY();
+
+        if ((centerX - radius < topLeft.getX() && velocity.getX() < 0)
+                || (centerX + radius > bottomRight.getX() && velocity.getX() > 0)) {
+            return Vector2.multiply(velocity, new Vector2(-1, 1));
+        } else if ((centerY - radius < topLeft.getY() && velocity.getY() < 0)
+                || (centerY + radius > bottomRight.getY() && velocity.getY() > 0)) {
+            return Vector2.multiply(velocity, new Vector2(1, -1));
+        }
+        return velocity; // doesn't mutate the velocity directly for good practice
     }
 
 }

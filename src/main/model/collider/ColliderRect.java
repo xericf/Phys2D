@@ -1,6 +1,5 @@
 package model.collider;
 
-import model.util.Transform;
 import model.util.Vector2;
 
 // Provides properties necessary for basic collision detection of rectangular shaped objects
@@ -85,5 +84,20 @@ public class ColliderRect extends Collider {
 
 
         return null;
+    }
+
+    @Override
+    public Vector2 calculateBorderInteraction(Vector2 velocity, Vector2 topLeft, Vector2 bottomRight) {
+        float centerX = center.getX();
+        float centerY = center.getY();
+
+        if ((centerX - (width / 2) < topLeft.getX() && velocity.getX() < 0)
+                || (centerX + (width / 2) > bottomRight.getX() && velocity.getX() > 0)) {
+            return Vector2.multiply(velocity, new Vector2(-1, 1));
+        } else if ((centerY - (height / 2) < topLeft.getY() && velocity.getY() < 0)
+                || (centerY + (height / 2) > bottomRight.getY() && velocity.getY() > 0)) {
+            return Vector2.multiply(velocity, new Vector2(1, -1));
+        }
+        return velocity; // doesn't mutate the velocity directly for good practice
     }
 }

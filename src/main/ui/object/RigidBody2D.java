@@ -1,6 +1,5 @@
 package ui.object;
 
-import model.util.Transform;
 import model.util.Vector2;
 import org.json.JSONObject;
 import persistence.Savable;
@@ -17,6 +16,7 @@ public abstract class RigidBody2D implements Savable {
     protected Vector2 scale;
     // protected float rotation;
 
+    protected Color color;
     // protected float mass;
 
 
@@ -62,6 +62,10 @@ public abstract class RigidBody2D implements Savable {
         force.set(netForce);
     }
 
+    public void setVelocity(Vector2 newVelocity) {
+        this.velocity = newVelocity;
+    }
+
     public Vector2 getVelocity() {
         return velocity;
     }
@@ -81,6 +85,7 @@ public abstract class RigidBody2D implements Savable {
     public void setScale(Vector2 scale) {
         this.scale = scale;
     }
+
 
     @Override
     public JSONObject toJson() {
