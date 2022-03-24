@@ -35,9 +35,10 @@ public class World implements Savable {
         gravityForce = new Vector2(0, 50f);
 
         // Change this in the future for games that don't need players
-        player = new Player(new Vector2(1, size.getY() - 50),
+        player = new Player(new Vector2(150f, size.getY() - 50),
                             new Vector2(0, 0),
-                            new Vector2(0, 0));
+                            new Vector2(0, 0),
+                            new Vector2(150f, 25f));
     }
 
     // Updates the world every tick
@@ -89,9 +90,10 @@ public class World implements Savable {
 
         if (key == 84) { // t
             // make it spawn at mouse position too if mouse is on screen
-            Ball ball = new Ball(new Vector2(60, 3),
+            Ball ball = new Ball(new Vector2(200, 80),
                     new Vector2((float) Math.random() * 100 - 50, 0),
-                    new Vector2(0, 0));
+                    new Vector2(0, 0),
+                    new Vector2(20, 20));
 
             worldObjects.add(ball);
         } else if (key == 70) { // F

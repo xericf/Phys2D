@@ -6,19 +6,14 @@ import model.util.Vector2;
 // Provides properties necessary for basic collision detection of circular objects
 public class ColliderCircle extends Collider {
 
-    protected Vector2 center;
     protected float radius;
 
     // Constructor for a rectangular collider
     // EFFECTS: Constructs a ColliderCircle centered at a given position,
     // with a certain radius
     public ColliderCircle(Vector2 position, float radius) {
-        this.center = position;
+        super(position);
         this.radius = radius;
-    }
-
-    public Vector2 getCenter() {
-        return center;
     }
 
     public float getRadius() {
@@ -26,7 +21,7 @@ public class ColliderCircle extends Collider {
     }
 
     @Override
-    public ColliderPoints findCollision(ColliderCircle colliderCircle, Transform transformCircle) {
+    public ColliderPoints findCollision(ColliderCircle colliderCircle) {
 
         // The circles are intersecting when the distance between the centers
         // is less than the radius of the two circles
@@ -45,12 +40,11 @@ public class ColliderCircle extends Collider {
     }
 
     @Override
-    public ColliderPoints findCollision(ColliderRect colliderRect, Transform transformRect) {
+    public ColliderPoints findCollision(ColliderRect colliderRect) {
         // the circle is intersecting with a box when the box contains some point of the circle.
 
         float boxWidthOffset = colliderRect.getWidth() / 2;
         float boxHeightOffset = colliderRect.getHeight() / 2;
-
         float bxLeft = colliderRect.getCenter().getX() - boxWidthOffset;
         float byTop = colliderRect.getCenter().getY() - boxHeightOffset;
         float bxRight = colliderRect.getCenter().getX() + boxWidthOffset;
@@ -58,20 +52,24 @@ public class ColliderCircle extends Collider {
         float cx = center.getX();
         float cy = center.getY();
 
-        // Closest points to the center
-        // Essentially squeezes the potential points
-        // Case 1: Rectangle intersects to the left of the circle center
-        // Solution: Take the rightmost point of the rectangle, or the x-center of the circle if intersecting the
-        //           center.
-        // Case 2: Rectangle intersects to the right of the circle center
-        // Solution: Take the leftmost point of the rectangle, or the x-center of the circle if intersecting the
-        //          center.
+        // Closest points to the center of circle
         float pointX = Math.max(bxLeft, Math.min(bxRight, cx));
-        // Without loss of generalization, the same formula applies to the Y component, too.
         float pointY = Math.max(byTop, Math.min(byBot, cy));
+        Vector2 closestToCenter = new Vector2(pointX, pointY);
+        float hypotenuse = Vector2.calculateHypotenuse(center, closestToCenter);
 
-        Vector2 closestPoint = new Vector2(pointX, pointY);
-        float hypotenuse = Vector2.calculateHypotenuse(center, closestPoint);
-        return hypotenuse < radius ? new ColliderPoints(center, closestPoint) : null;
+        // If hypotenuse <= radius, get point on the radius furthest in the rectangle
+        if (hypotenuse <= radius) {
+            if (pointX == cx) {
+                return new ColliderPoints(center, new Vector2(cx, cy < pointY ? cy + radius : cy - radius));
+            }
+            float slope = (pointY - cy) / (pointX - cx);
+            // x = (radius^2 / (slope^2 + 1))
+            float radiusX = (float) Math.sqrt((radius * radius) / (slope * slope + 1));
+            float radiusY = radiusX * slope;
+            return new ColliderPoints(center, new Vector2(radiusX, radiusY));
+        }
+        return null;
     }
+
 }

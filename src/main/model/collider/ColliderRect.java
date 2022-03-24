@@ -6,7 +6,6 @@ import model.util.Vector2;
 // Provides properties necessary for basic collision detection of rectangular shaped objects
 public class ColliderRect extends Collider {
 
-    protected Vector2 center;
     protected float width;
     protected float height;
 
@@ -14,13 +13,9 @@ public class ColliderRect extends Collider {
     // EFFECTS: Constructs a ColliderRect centered at a given position,
     // with a certain width and height.
     public ColliderRect(Vector2 position, float width, float height) {
-        this.center = position;
+        super(position);
         this.width = width;
         this.height = height;
-    }
-
-    public Vector2 getCenter() {
-        return center;
     }
 
     public float getHeight() {
@@ -32,11 +27,9 @@ public class ColliderRect extends Collider {
     }
 
     @Override
-    public ColliderPoints findCollision(ColliderCircle colliderCircle, Transform transformCircle) {
-
+    public ColliderPoints findCollision(ColliderCircle colliderCircle) {
         float boxWidthOffset = width / 2;
         float boxHeightOffset = height / 2;
-
 
         float bxLeft = center.getX() - boxWidthOffset;
         float byTop = center.getY() - boxHeightOffset;
@@ -48,18 +41,26 @@ public class ColliderRect extends Collider {
         float cx = centerCircle.getX();
         float cy = centerCircle.getY();
 
-        // See ColliderCircle.findCollision for an explanation to pointX and pointY
         float pointX = Math.max(bxLeft, Math.min(bxRight, cx));
         float pointY = Math.max(byTop, Math.min(byBot, cy));
+        Vector2 closestToCenter = new Vector2(pointX, pointY);
+        float hypotenuse = Vector2.calculateHypotenuse(center, closestToCenter);
 
-        Vector2 closestPoint = new Vector2(pointX, pointY);
-        float hypotenuse = Vector2.calculateHypotenuse(center, closestPoint);
-        return hypotenuse < radius ? new ColliderPoints(center, closestPoint) : null;
-
+        if (hypotenuse <= radius) {
+            if (pointX == cx) {
+                return new ColliderPoints(center, new Vector2(cx, cy < pointY ? cy + radius : cy - radius));
+            }
+            float slope = (pointY - cy) / (pointX - cx);
+            // x = (radius^2 / (slope^2 + 1))
+            float radiusX = (float) Math.sqrt((radius * radius) / (slope * slope + 1));
+            float radiusY = radiusX * slope;
+            return new ColliderPoints(center, new Vector2(radiusX, radiusY));
+        }
+        return null;
     }
 
     @Override
-    public ColliderPoints findCollision(ColliderRect colliderRect, Transform transformRect) {
+    public ColliderPoints findCollision(ColliderRect colliderRect) {
 
         Vector2 otherCenter = colliderRect.getCenter();
         float bx = otherCenter.getX();

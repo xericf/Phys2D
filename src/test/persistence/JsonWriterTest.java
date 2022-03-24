@@ -98,14 +98,17 @@ public class JsonWriterTest {
         World world = new World(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight));
         world.setPlayer(new Player(new Vector2(40, 35),
                 new Vector2(25, 0),
-                new Vector2(0, 0)));
+                new Vector2(0, 0),
+                new Vector2(1, 1)));
         ArrayList<Ball> worldObjects = new ArrayList<>();
         worldObjects.add(new Ball(new Vector2(81, 12),
                 new Vector2(5, -13),
-                new Vector2(0, 0)));
+                new Vector2(0, 0),
+                new Vector2(1, 1)));
         worldObjects.add(new Ball(new Vector2(52, 8),
                 new Vector2(-6, 10),
-                new Vector2(0, 0)));
+                new Vector2(0, 0),
+                new Vector2(1, 1)));
         world.setWorldObjects(worldObjects);
         return world;
     }

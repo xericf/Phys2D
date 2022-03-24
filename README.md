@@ -36,4 +36,11 @@ As a *user*, I want to:
 
 Phase 2
 - Be able to save my World's information about its properties and each physical object's instantaneous velocity, position, and acceleration onto a file by pressing " i ".
-- Be able to load a World's information from a file by pressing " o " and selecting a file.
+- Be able to load a World's information from a file by pressing " o ".
+
+Phase 3
+- GUI integration: Be able to add a ball to the list of physical objects in a World by pressing " t " (lowercase)  
+  which then shows up on the screen as a circle. Other two related events:
+  - " f " to clear the balls on the screen
+  - Able to click and drag on the balls to move them.
+- GUI integration: As a user I want to be able to save and load world information on a file with " i " and " o "

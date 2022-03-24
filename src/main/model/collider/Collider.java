@@ -6,13 +6,35 @@ import model.util.Vector2;
 // Collider class for collision detection between physical objects
 public abstract class Collider {
 
-    // EFFECTS: Finds the collusion points between the current collider object and a circular
-    // collider with a given transform.
-    public abstract ColliderPoints findCollision(ColliderCircle colliderCircle, Transform transformCircle);
+    protected Vector2 center;
 
-    // EFFECTS: Finds the collusion points between the current collider object and a rectangular
+    // EFFECTS: Constructs a collider with a given center position.
+    public Collider(Vector2 center) {
+        this.center = center;
+    }
+
+    // TODO: Currently the findCollisions methods do not find the true deepest intersecting points
+    // between two objects, which isn't a problem until rotation is implemented. They are only implemented for
+    // the normalVector of ColliderPoints to affect a single x or y component to save on complexity.
+    // Once rotation is implemented, correct the deepest intersecting points finder to calculate torque correctly.
+
+    // REQUIRES: colliderCircle is not the same object
+    // EFFECTS: Finds the collision points between the current collider object and a circular
     // collider with a given transform.
-    public abstract ColliderPoints findCollision(ColliderRect colliderRect, Transform transformRect);
+    public abstract ColliderPoints findCollision(ColliderCircle colliderCircle);
+
+    // REQUIRES: colliderRect is not the same object
+    // EFFECTS: Finds the collision points between the current collider object and a rectangular
+    // collider with a given transform.
+    public abstract ColliderPoints findCollision(ColliderRect colliderRect);
+
+    public Vector2 getCenter() {
+        return center;
+    }
+
+    public void setCenter(Vector2 center) {
+        this.center = center;
+    }
 
     // Checks if a ColliderRect is within a box built by topLeft and bottomRight points
     // EFFECTS: If all points of a ColliderRect are within the rectangle defined by the topLeft
@@ -60,22 +82,5 @@ public abstract class Collider {
 
     }
 
-    /*
-    public static boolean checkCollide(ColliderCircle circle, ColliderRect rect) {
-        return false;
-    }
-
-    public static boolean checkCollide(ColliderRect rect, ColliderCircle circle) {
-        return false;
-    }
-
-    public static boolean checkCollide(ColliderCircle circle, ColliderCircle rect) {
-        return false;
-    }
-
-    public static boolean checkCollide(ColliderRect circle, ColliderRect rect) {
-        return false;
-    }
-    */
 
 }

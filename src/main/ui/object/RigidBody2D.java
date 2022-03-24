@@ -14,19 +14,19 @@ public abstract class RigidBody2D implements Savable {
     protected Vector2 position;
     protected Vector2 velocity;
     protected Vector2 force; // net force
+    protected Vector2 scale;
+    // protected float rotation;
 
-   // protected float mass;
+    // protected float mass;
 
-    protected Transform transform;
 
     // Constructor for a rigid body
-    // Effects: Builds a rigid body of a certain position, velocity, and force vector
-    public RigidBody2D(Vector2 position, Vector2 velocity, Vector2 force) {
-       // this.transform = new Transform(position);
-
+    // Effects: Builds a rigid body of a certain position, velocity, force, and scale.
+    public RigidBody2D(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale) {
         this.position = position;
         this.velocity = velocity;
         this.force = force;
+        this.scale = scale;
     }
 
     // Draws the rigid body
@@ -74,6 +74,13 @@ public abstract class RigidBody2D implements Savable {
         return force;
     }
 
+    public Vector2 getScale() {
+        return scale;
+    }
+
+    public void setScale(Vector2 scale) {
+        this.scale = scale;
+    }
 
     @Override
     public JSONObject toJson() {
@@ -81,6 +88,7 @@ public abstract class RigidBody2D implements Savable {
         jsonObject.put("position", position.toJson());
         jsonObject.put("velocity", velocity.toJson());
         jsonObject.put("force", force.toJson());
+        jsonObject.put("scale", scale.toJson());
         return jsonObject;
     }
 

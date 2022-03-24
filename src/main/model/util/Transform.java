@@ -38,7 +38,7 @@ public class Transform {
     public void setRotation(float rotation) {
         this.rotation = rotation;
     }
-
+/*
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -53,5 +53,6 @@ public class Transform {
                 && scale.equals(transform.getScale())
                 && rotation == transform.getRotation();
     }
+*/
 }
 

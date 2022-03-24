@@ -42,8 +42,8 @@ public class ColliderPoints {
         float bx = b.getX();
         float by = b.getY();
 
-        float sideX = ax - bx;
-        float sideY = ay - by;
+        float sideX = bx - ax;
+        float sideY = by - ay;
 
         // Hypotenuse magnitude
         intersectDistance = Vector2.calculateHypotenuse(a, b);
@@ -56,6 +56,37 @@ public class ColliderPoints {
             normalSlope = new Vector2(0, 0);
             colliding = false;
         }
+    }
+
+    public Vector2 getPointA() {
+        return pointA;
+    }
+
+    public Vector2 getPointB() {
+        return pointB;
+    }
+
+    public Vector2 getNormalSlope() {
+        return normalSlope;
+    }
+
+    public float getIntersectDistance() {
+        return intersectDistance;
+    }
+
+    public boolean isColliding() {
+        return colliding;
+    }
+
+    // EFFECTS: True if the other ColliderPoints has the same property values as this object,
+    // false otherwise.
+    public boolean equals(ColliderPoints colliderPoints) {
+
+        return pointA.equals(colliderPoints.getPointA())
+                && pointB.equals(colliderPoints.getPointB())
+                && normalSlope.equals(colliderPoints.getNormalSlope())
+                && intersectDistance == colliderPoints.getIntersectDistance()
+                && colliding == colliderPoints.isColliding();
 
     }
 

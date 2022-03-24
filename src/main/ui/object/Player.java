@@ -18,10 +18,10 @@ public class Player extends RigidBody2D {
     // Creates a Player
     // EFFECTS: Creates a player based on the RigidBody2D class and Initializes a
     // ColliderRect to give player rectangular collision detection
-    public Player(Vector2 position, Vector2 velocity, Vector2 force) {
-        super(position, velocity, force);
+    public Player(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale) {
+        super(position, velocity, force, scale);
 
-        collider = new ColliderRect(position, width, height);
+        collider = new ColliderRect(position, scale.getX(), scale.getY());
     }
 
     // Provides pressing certain keys with player-specific functionality
@@ -47,7 +47,10 @@ public class Player extends RigidBody2D {
     @Override
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
-        g.fillRect((int) position.getX(), (int) position.getY(), 100, 20);
+        float scaleX = scale.getX();
+        float scaleY = scale.getY();
+        g.fillRect((int) (position.getX() - (scaleX / 2)),
+                (int) (position.getY() - (scaleY / 2)), (int) scaleX, (int) scaleY);
     }
 
     public ColliderRect getCollider() {

@@ -50,15 +50,9 @@ public class JsonReader {
         Vector2 gravityForce = Vector2.parseJson(worldData.getJSONObject("gravityForce"));
 
         // player
-
-        JSONObject jsonPlayer = worldData.getJSONObject("player");
-        Vector2 playerPosition = Vector2.parseJson(jsonPlayer.getJSONObject("position"));
-        Vector2 playerVelocity = Vector2.parseJson(jsonPlayer.getJSONObject("velocity"));
-        Vector2 playerForce = Vector2.parseJson(jsonPlayer.getJSONObject("force"));
-        Player resultPlayer = new Player(playerPosition, playerVelocity, playerForce);
+        Player resultPlayer = parsePlayer(worldData);
 
         // other physical objects
-
         ArrayList<Ball> resultObjects = new ArrayList<>();
         JSONArray worldObjects = worldData.getJSONArray("world_objects");
         int length = worldObjects.length();
@@ -68,7 +62,8 @@ public class JsonReader {
             Vector2 position = Vector2.parseJson(jsonPhysicalObject.getJSONObject("position"));
             Vector2 velocity = Vector2.parseJson(jsonPhysicalObject.getJSONObject("velocity"));
             Vector2 force = Vector2.parseJson(jsonPhysicalObject.getJSONObject("force"));
-            Ball ball = new Ball(position, velocity, force);
+            Vector2 scale = Vector2.parseJson(jsonPhysicalObject.getJSONObject("scale"));
+            Ball ball = new Ball(position, velocity, force, scale);
             resultObjects.add(ball);
         }
 
@@ -78,6 +73,15 @@ public class JsonReader {
         result.setWorldObjects(resultObjects);
 
         return result;
+    }
+
+    private static Player parsePlayer(JSONObject worldData) {
+        JSONObject jsonPlayer = worldData.getJSONObject("player");
+        Vector2 playerPosition = Vector2.parseJson(jsonPlayer.getJSONObject("position"));
+        Vector2 playerVelocity = Vector2.parseJson(jsonPlayer.getJSONObject("velocity"));
+        Vector2 playerForce = Vector2.parseJson(jsonPlayer.getJSONObject("force"));
+        Vector2 playerScale = Vector2.parseJson(jsonPlayer.getJSONObject("scale"));
+        return new Player(playerPosition, playerVelocity, playerForce, playerScale);
     }
 
 

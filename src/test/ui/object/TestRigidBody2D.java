@@ -16,7 +16,8 @@ public class TestRigidBody2D {
     void runBefore() {
        body = new Ball(new Vector2(1f, 2f),
                             new Vector2(2f, 3f),
-                            new Vector2(10f, 10f));
+                            new Vector2(10f, 10f),
+               new Vector2(1, 1));
     }
 
     @Test
