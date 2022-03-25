@@ -39,8 +39,8 @@ public class TestPlayer {
         // based on certain char codes from 'keys', it is not actually the function
         // that polls for input.
 
-        char a = 'a';
-        char d = 'd';
+        char a = 65;
+        char d = 68;
 
         body.handleInput(a);
         assertEquals(-Player.moveVelocity, body.getVelocity().getX());

@@ -5,8 +5,6 @@ import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,14 +21,14 @@ public class TestBall {
     }
 
     @Test
-    void testConstructor() throws IOException {
+    void testConstructor() {
         assertTrue(body.getPosition().equals(new Vector2(1f, 2f)));
         assertTrue(body.getVelocity().equals(new Vector2(2f, 3f)));
         assertTrue(body.getForce().equals(new Vector2(10f, 10f)));
 
         ColliderCircle circle = body.getCollider();
         assertTrue(circle.getCenter().equals(body.getPosition()));
-        assertEquals(1f, circle.getRadius());
+        assertEquals(0.5f, circle.getRadius());
 
 
     }
