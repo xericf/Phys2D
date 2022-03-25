@@ -185,7 +185,8 @@ public class JuggleDemo extends JPanel implements Runnable {
     }
 
     // MODIFIES: this
-    // EFFECTS: Loads world data from a JSON file, replaces old world with a new world
+    // EFFECTS: Removes old mouse listeners, loads world data from a JSON file, replaces old world with a new world
+    // and adds the new mouse listeners.
     public void loadWorld()  {
         try {
             // Necessary to make sure there is a world before removing any listeners
