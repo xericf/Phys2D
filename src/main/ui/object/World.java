@@ -122,14 +122,14 @@ public class World implements Savable, MouseListener, MouseMotionListener {
 
                 ColliderPoints colliderPoints = colliderA.findCollision(colliderB);
                 if (colliderPoints != null) {
-                    Vector2 normalSlope = colliderPoints.getNormalSlope();
-                    // TODO: Make it reflect the velocity over the slope line for true bounce
-
-                    if ((normalSlope.getY() < 0 && objectA.getVelocity().getY() < 0)
-                            || (normalSlope.getY() > 0 && objectA.getVelocity().getY() > 0)) {
-                        objectA.getVelocity().multiply(new Vector2(1, -1));
-                        objectA.getVelocity().multiply(new Vector2(1, -1));
-                    }
+//                    Vector2 normalSlope = colliderPoints.getNormalSlope();
+//                    // TODO: Make it reflect the velocity over the slope line for true bounce
+//
+//                    if ((normalSlope.getY() < 0 && objectA.getVelocity().getY() < 0)
+//                            || (normalSlope.getY() > 0 && objectA.getVelocity().getY() > 0)) {
+//                        objectA.getVelocity().multiply(new Vector2(1, -1));
+//                        objectA.getVelocity().multiply(new Vector2(1, -1));
+//                    }
                 }
             }
 
@@ -299,11 +299,11 @@ public class World implements Savable, MouseListener, MouseMotionListener {
         if (heldBall == null) {
             // if null, make new ball and set it to heldBall
             heldBall = addBall(new Vector2(e.getX(), e.getY()));
-
-            // we do not want the position vectors of heldBall and lastMousePosition to be the same object
-            lastMousePosition = new Vector2(e.getX(), e.getY());
-            lastTimeSinceHeld = System.nanoTime();
         }
+
+        // we do not want the position vectors of heldBall and lastMousePosition to be the same object
+        lastMousePosition = new Vector2(e.getX(), e.getY());
+        lastTimeSinceHeld = System.nanoTime();
         heldBall.setAnchored(true); // not a chance that heldBall is null
 
     }
