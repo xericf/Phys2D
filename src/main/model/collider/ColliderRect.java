@@ -60,7 +60,8 @@ public class ColliderRect extends Collider {
 
     @Override
     public ColliderPoints findCollision(ColliderRect colliderRect) {
-
+        // UNUSED SO FAR, HENCE COMMENTED OUT IMPLEMENTATION
+/*
         Vector2 otherCenter = colliderRect.getCenter();
         float bx = otherCenter.getX();
         float by = otherCenter.getY();
@@ -81,7 +82,8 @@ public class ColliderRect extends Collider {
                 && cy < by + boxHeightOffset + currentHeightOffset) {
             return new ColliderPoints(getCenter(), otherCenter);
         }
-
+        return null;
+        */
 
         return null;
     }

@@ -139,9 +139,9 @@ public class ColliderCircleTest {
         assertTrue(interaction.equals(new Vector2(1f, 1f)));
 
         ball1.setVelocity(new Vector2(-1f, 1f));
-        ball1.setPosition(new Vector2(9.1f, 2));
+        ball1.setPosition(new Vector2(0.9f, 2));
         interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
-        assertTrue(interaction.equals(new Vector2(-1f, 1f)));
+        assertTrue(interaction.equals(new Vector2(1f, 1f)));
 
         // Hit nothing
         ball1.setVelocity(new Vector2(1f, 1f));

@@ -44,6 +44,19 @@ public class ColliderRectTest {
     }
 
     @Test
+    void testFindCollisionRectRectNotFound() {
+        Rect rect2 = new Rect(new Vector2(0f, 0f),
+                new Vector2(2f, 3f),
+                new Vector2(10f, 10f),
+                new Vector2(2, 2));
+        ColliderRect colliderRect2 = rect2.getCollider();
+        ColliderPoints colliderPoints = colliderRect.findCollision(colliderRect2);
+        assertNull(colliderPoints);
+
+    }
+
+
+    @Test
     void testFindCollisionRectCircleNotFound() {
         ColliderPoints colliderPoints = colliderRect.findCollision(colliderCircle);
         assertNull(colliderPoints);
