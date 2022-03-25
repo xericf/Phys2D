@@ -100,14 +100,24 @@ public class ColliderCircleTest {
     void testBorderInteraction() {
         Vector2 topLeft = new Vector2(0, 0);
         Vector2 botRight = new Vector2(10, 10);
-
+        Vector2 interaction;
         // Hit top, bot
         ball1.setVelocity(new Vector2(1f, 1f));
         ball1.setPosition(new Vector2(2, 0.9f));
-        Vector2 interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
+        interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
+        assertTrue(interaction.equals(new Vector2(1, 1)));
+
+        ball1.setVelocity(new Vector2(1f, -1f));
+        ball1.setPosition(new Vector2(2, 0.9f));
+        interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
         assertTrue(interaction.equals(new Vector2(1, 1)));
 
         ball1.setVelocity(new Vector2(1f, 1f));
+        ball1.setPosition(new Vector2(2, 9.1f));
+        interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
+        assertTrue(interaction.equals(new Vector2(1, -1)));
+
+        ball1.setVelocity(new Vector2(1f, -1f));
         ball1.setPosition(new Vector2(2, 9.1f));
         interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
         assertTrue(interaction.equals(new Vector2(1, -1)));
@@ -118,11 +128,20 @@ public class ColliderCircleTest {
         interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
         assertTrue(interaction.equals(new Vector2(-1f, 1f)));
 
+        ball1.setVelocity(new Vector2(-1f, 1f));
+        ball1.setPosition(new Vector2(9.1f, 2));
+        interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
+        assertTrue(interaction.equals(new Vector2(-1f, 1f)));
+
         ball1.setVelocity(new Vector2(1f, 1f));
         ball1.setPosition(new Vector2(0.9f, 2));
         interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
         assertTrue(interaction.equals(new Vector2(1f, 1f)));
 
+        ball1.setVelocity(new Vector2(-1f, 1f));
+        ball1.setPosition(new Vector2(9.1f, 2));
+        interaction = colliderCircle.calculateBorderInteraction(topLeft, botRight);
+        assertTrue(interaction.equals(new Vector2(-1f, 1f)));
 
         // Hit nothing
         ball1.setVelocity(new Vector2(1f, 1f));
