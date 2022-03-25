@@ -1,11 +1,11 @@
 {
     "size": {
-        "x": 120,
-        "y": 40
+        "x": 1200,
+        "y": 720
     },
     "bottomRight": {
-        "x": 120,
-        "y": 40
+        "x": 1200,
+        "y": 720
     },
     "world_objects": [],
     "topLeft": {
@@ -14,16 +14,21 @@
     },
     "gravityForce": {
         "x": 0,
-        "y": 9.81
+        "y": 65
     },
     "player": {
+        "color": -1,
+        "scale": {
+            "x": 150,
+            "y": 25
+        },
         "force": {
             "x": 0,
             "y": 0
         },
         "position": {
-            "x": 1,
-            "y": 35
+            "x": 150,
+            "y": 670
         },
         "velocity": {
             "x": 0,

@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest {
 
-    public static final String testPath = "./data/testReaderDefaultConsoleWorld.json";
-
+    public static final String testPathDefault = "./data/testReaderDefaultJuggleWorld.json";
+    public static final String testPathGeneral = "./data/testReaderGeneralJuggleWorld.json";
     @Test
     void testReaderWorldFileDoesNotExist() {
         try {
@@ -31,7 +31,7 @@ public class JsonReaderTest {
     void testReaderDefaultWorld() {
 
         try {
-            World world = JsonReader.readWorld(testPath);
+            World world = JsonReader.readWorld(testPathDefault);
             assertTrue(world.getSize()
                     .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()
@@ -39,12 +39,12 @@ public class JsonReaderTest {
             assertTrue(world.getTopLeft()
                     .equals(new Vector2(0, 0)));
             assertEquals(0, world.getWorldObjects().size());
-            assertTrue( world.getGravityForce().equals(new Vector2(0, 9.81f)));
+            assertTrue( world.getGravityForce().equals(new Vector2(0, 65f)));
 
             Player player = world.getPlayer();
             assertTrue(player.getForce().equals(new Vector2(0, 0)));
             assertTrue(player.getVelocity().equals(new Vector2(0, 0)));
-            assertTrue(player.getPosition().equals(new Vector2(1, 35)));
+            assertTrue(player.getPosition().equals(new Vector2(150, 670)));
 
         } catch (IOException e) {
             fail("Couldn't read from file");
@@ -54,32 +54,28 @@ public class JsonReaderTest {
     @Test
     void testReaderGeneralWorld() {
         try {
-            World world = JsonReader.readWorld(testPath);
+            World world = JsonReader.readWorld(testPathGeneral);
             assertTrue(world.getSize()
                     .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()
                     .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getTopLeft()
                     .equals(new Vector2(0, 0)));
-            assertTrue( world.getGravityForce().equals(new Vector2(0, 9.81f)));
+            assertTrue( world.getGravityForce().equals(new Vector2(0, 65f)));
 
             Player player = world.getPlayer();
             assertTrue(player.getForce().equals(new Vector2(0, 0)));
-            assertTrue(player.getVelocity().equals(new Vector2(25, 0)));
-            assertTrue(player.getPosition().equals(new Vector2(40, 35)));
+            assertTrue(player.getVelocity().equals(new Vector2(0, 0)));
+            assertTrue(player.getPosition().equals(new Vector2(150, 670)));
 
             ArrayList<Ball> worldObjects = world.getWorldObjects();
-            assertEquals(2, worldObjects.size());
+            assertEquals(1, worldObjects.size());
 
             Ball ball1 = worldObjects.get(0);
             assertTrue(ball1.getForce().equals(new Vector2(0, 0)));
-            assertTrue(ball1.getVelocity().equals(new Vector2(5, -13)));
-            assertTrue(ball1.getPosition().equals(new Vector2(81, 12)));
+            assertTrue(ball1.getVelocity().equals(new Vector2(-4, 107)));
+            assertTrue(ball1.getPosition().equals(new Vector2(646, 425)));
 
-            Ball ball2 = worldObjects.get(1);
-            assertTrue(ball2.getForce().equals(new Vector2(0, 0)));
-            assertTrue(ball2.getVelocity().equals(new Vector2(-6, 10)));
-            assertTrue(ball2.getPosition().equals(new Vector2(52, 8)));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

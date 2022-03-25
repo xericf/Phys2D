@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonWriterTest {
+
+    public static final String testPathDefault = "./data/testWriterDefaultJuggleWorld.json";
+    public static final String testPathGeneral = "./data/testWriterGeneralJuggleWorld.json";
+
     @Test
     void testWriterInvalidFile() {
         try {
@@ -29,12 +33,12 @@ public class JsonWriterTest {
     void testWriterEmptyWorld() {
         try {
             World world = new World(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight));
-            JsonWriter writer = new JsonWriter("./data/testWriterDefaultConsoleWorld.json");
+            JsonWriter writer = new JsonWriter(testPathDefault);
             writer.openWriter();
             writer.write(world);
             writer.closeWriter();
 
-            world = JsonReader.readWorld("./data/testWriterDefaultConsoleWorld.json");
+            world = JsonReader.readWorld(testPathDefault);
             assertTrue(world.getSize()
                     .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()
@@ -42,12 +46,12 @@ public class JsonWriterTest {
             assertTrue(world.getTopLeft()
                     .equals(new Vector2(0, 0)));
             assertEquals(0, world.getWorldObjects().size());
-            assertTrue( world.getGravityForce().equals(new Vector2(0, 9.81f)));
+            assertTrue( world.getGravityForce().equals(new Vector2(0, 65f)));
 
             Player player = world.getPlayer();
             assertTrue(player.getForce().equals(new Vector2(0, 0)));
             assertTrue(player.getVelocity().equals(new Vector2(0, 0)));
-            assertTrue(player.getPosition().equals(new Vector2(1, 35)));
+            assertTrue(player.getPosition().equals(new Vector2(150, 670)));
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -58,7 +62,7 @@ public class JsonWriterTest {
     void testWriterGeneralWorld() {
         try {
             World world = makeGeneralWorld();
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralConsoleWorld.json");
+            JsonWriter writer = new JsonWriter(testPathGeneral);
             writer.openWriter();
             writer.write(world);
             writer.closeWriter();
@@ -69,25 +73,22 @@ public class JsonWriterTest {
                     .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getTopLeft()
                     .equals(new Vector2(0, 0)));
-            assertTrue( world.getGravityForce().equals(new Vector2(0, 9.81f)));
+            assertTrue( world.getGravityForce().equals(new Vector2(0, 65f)));
 
             Player player = world.getPlayer();
             assertTrue(player.getForce().equals(new Vector2(0, 0)));
-            assertTrue(player.getVelocity().equals(new Vector2(25, 0)));
-            assertTrue(player.getPosition().equals(new Vector2(40, 35)));
+            assertTrue(player.getVelocity().equals(new Vector2(0, 0)));
+            assertTrue(player.getPosition().equals(new Vector2(150, 670)));
+            assertTrue(player.getScale().equals(new Vector2(150, 50)));
 
             ArrayList<Ball> worldObjects = world.getWorldObjects();
-            assertEquals(2, worldObjects.size());
+            assertEquals(1, worldObjects.size());
 
             Ball ball1 = worldObjects.get(0);
             assertTrue(ball1.getForce().equals(new Vector2(0, 0)));
-            assertTrue(ball1.getVelocity().equals(new Vector2(5, -13)));
-            assertTrue(ball1.getPosition().equals(new Vector2(81, 12)));
-
-            Ball ball2 = worldObjects.get(1);
-            assertTrue(ball2.getForce().equals(new Vector2(0, 0)));
-            assertTrue(ball2.getVelocity().equals(new Vector2(-6, 10)));
-            assertTrue(ball2.getPosition().equals(new Vector2(52, 8)));
+            assertTrue(ball1.getVelocity().equals(new Vector2(-4, 107)));
+            assertTrue(ball1.getPosition().equals(new Vector2(646, 425)));
+            assertTrue(ball1.getScale().equals(new Vector2(1, 1)));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
@@ -96,17 +97,13 @@ public class JsonWriterTest {
 
     public static World makeGeneralWorld() {
         World world = new World(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight));
-        world.setPlayer(new Player(new Vector2(40, 35),
-                new Vector2(25, 0),
+        world.setPlayer(new Player(new Vector2(150, 670),
                 new Vector2(0, 0),
-                new Vector2(1, 1)));
+                new Vector2(0, 0),
+                new Vector2(150, 50)));
         ArrayList<Ball> worldObjects = new ArrayList<>();
-        worldObjects.add(new Ball(new Vector2(81, 12),
-                new Vector2(5, -13),
-                new Vector2(0, 0),
-                new Vector2(1, 1)));
-        worldObjects.add(new Ball(new Vector2(52, 8),
-                new Vector2(-6, 10),
+        worldObjects.add(new Ball(new Vector2(646, 425),
+                new Vector2(-4, 107),
                 new Vector2(0, 0),
                 new Vector2(1, 1)));
         world.setWorldObjects(worldObjects);
