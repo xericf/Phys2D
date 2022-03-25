@@ -9,8 +9,6 @@ import java.awt.*;
 public class Player extends RigidBody2D {
 
     public static final float moveVelocity = 150f;
-    private float width = 1f;
-    private float height = 1f;
 
     // Player contains a rectangle collider
     private ColliderRect collider;
@@ -24,6 +22,9 @@ public class Player extends RigidBody2D {
         // TODO: connect scale and collider better
     }
 
+    // Creates a player, with a color
+    // EFFECTS: Creates a player based on the RigidBody2d class and initializes a
+    // ColliderRect.
     public Player(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale, Color color) {
         super(position, velocity, force, scale, color);
         collider = new ColliderRect(this, scale.getX(), scale.getY());

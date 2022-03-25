@@ -76,6 +76,7 @@ public class JsonReader {
         return result;
     }
 
+    // EFFECTS: Parses a Player object using a given JSONObject with all the same properties as seen in the object.
     private static Player parsePlayer(JSONObject worldData) {
         JSONObject jsonPlayer = worldData.getJSONObject("player");
         Vector2 playerPosition = Vector2.parseJson(jsonPlayer.getJSONObject("position"));

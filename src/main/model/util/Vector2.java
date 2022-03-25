@@ -90,6 +90,7 @@ public class Vector2 implements Savable {
         return this;
     }
 
+    // EFFECTS: Calculates the hypotenuse between two vector coordinates and returns it in float form.
     public static float calculateHypotenuse(Vector2 a, Vector2 b) {
         float ax = a.getX();
         float ay = a.getY();

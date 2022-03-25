@@ -25,6 +25,8 @@ public class Window extends JFrame {
         juggleDemo.begin();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the current window.
     private void initializeWindowSettings() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Physics Engine");
@@ -36,6 +38,7 @@ public class Window extends JFrame {
 
     // KeyEvent handler, credit to SpaceInvadersRefactored
     private class KeyHandler extends KeyAdapter {
+        // EFFECTS: On each key press within the JFrame, send the input down towards the demo
         @Override
         public void keyPressed(KeyEvent e) {
             juggleDemo.handleInput(e.getKeyCode());

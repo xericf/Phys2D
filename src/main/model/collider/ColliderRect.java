@@ -18,14 +18,6 @@ public class ColliderRect extends Collider {
         this.height = height;
     }
 
-    public float getHeight() {
-        return height;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
     @Override
     public ColliderPoints findCollision(ColliderCircle colliderCircle) {
         float boxWidthOffset = width / 2;
@@ -101,5 +93,14 @@ public class ColliderRect extends Collider {
             return Vector2.multiply(velocity, new Vector2(1, -1));
         }
         return velocity; // doesn't mutate the velocity directly for good practice
+    }
+
+
+    public float getHeight() {
+        return height;
+    }
+
+    public float getWidth() {
+        return width;
     }
 }

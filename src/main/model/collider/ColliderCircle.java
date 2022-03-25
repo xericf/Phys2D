@@ -16,10 +16,6 @@ public class ColliderCircle extends Collider {
         this.radius = radius;
     }
 
-    public float getRadius() {
-        return radius;
-    }
-
     @Override
     public ColliderPoints findCollision(ColliderCircle colliderCircle) {
 
@@ -86,4 +82,7 @@ public class ColliderCircle extends Collider {
         return velocity; // doesn't mutate the velocity directly for good practice
     }
 
+    public float getRadius() {
+        return radius;
+    }
 }

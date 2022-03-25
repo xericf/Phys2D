@@ -50,7 +50,6 @@ public class JuggleDemo extends JPanel implements Runnable {
     }
 
 
-
     // Begins the simulation
     // MODIFIES: this
     // EFFECTS: Default starting screen is shown, starts the simulation

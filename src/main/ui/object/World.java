@@ -27,6 +27,9 @@ public class World implements Savable, MouseListener, MouseMotionListener {
     private Vector2 topLeft;
     private Vector2 bottomRight;
 
+    private Ball heldBall;
+    private Vector2 lastMousePosition;
+
     // Creates a world
     // EFFECTS: Constructor for a simulator for a physical world of a certain size (in meters).
     // Also sets up a bounding box for collision detection, and creates new list for physical objects,
@@ -236,9 +239,9 @@ public class World implements Savable, MouseListener, MouseMotionListener {
         return (float) nanoSecs / 1000000000;
     }
 
-    private Ball heldBall;
-    private Vector2 lastMousePosition;
 
+    // EFFECTS: Loops through all world objects checking to see if an x, y coordinate is within the
+    // colliding bounds in any of the objects.
     private Ball getBallAtMousePosition(int x, int y) {
         Vector2 mousePosition = new Vector2(x, y);
         for (Ball ball : worldObjects) {
@@ -279,6 +282,9 @@ public class World implements Savable, MouseListener, MouseMotionListener {
         // useless
     }
 
+    // MODIFIES: this
+    // EFFECTS: Handles mouse pressing events, updates the current ball being held
+    // or creates a new ball and sets the held ball anchored value to true.
     @Override
     public void mousePressed(MouseEvent e) {
         heldBall = getBallAtMousePosition(e.getX(), e.getY());
@@ -291,6 +297,8 @@ public class World implements Savable, MouseListener, MouseMotionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: If there was a ball being held, set the anchored value to false. Release the ball.
     @Override
     public void mouseReleased(MouseEvent e) {
         if (heldBall != null) {
@@ -311,6 +319,7 @@ public class World implements Savable, MouseListener, MouseMotionListener {
         // Useless
     }
 
+    // EFFECTS: If there is a ball being held, set the position of the ball to the cursor's coordinates
     @Override
     public void mouseDragged(MouseEvent e) {
         if (heldBall != null) {

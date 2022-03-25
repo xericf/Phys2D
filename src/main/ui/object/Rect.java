@@ -11,7 +11,7 @@ public class Rect extends RigidBody2D {
     private ColliderRect collider;
 
     // Represent a 2-dimensional rigid body in the shape of a rectangle
-    // EFFECTS: Constructor for a circle, initializes a new rectangle collider
+    // EFFECTS: Constructor for a rectangle, initializes a new rectangle collider
     // at a given position.
     public Rect(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale) {
         super(position, velocity, force, scale, Color.GREEN);
@@ -20,14 +20,14 @@ public class Rect extends RigidBody2D {
     }
 
     // TODO: have player extends this.
-
-    // EFFECTS: Constructor for a circle with color, initializes a new circular collider
+/*
+    // EFFECTS: Constructor for a rectangle with color, initializes a new rectangular collider
     // at a given position.
     public Rect(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale, Color color) {
         super(position, velocity, force, scale, color);
 
         collider = new ColliderRect(this, scale.getX(), scale.getY());
-    }
+    } */
 
     // Draws the rigid body
     // MODIFIES: g
