@@ -29,6 +29,7 @@ public class World implements Savable, MouseListener, MouseMotionListener {
 
     private Ball heldBall;
     private Vector2 lastMousePosition;
+    private long lastTimeSinceHeld;
 
     // Creates a world
     // EFFECTS: Constructor for a simulator for a physical world of a certain size (in meters).
@@ -170,10 +171,6 @@ public class World implements Savable, MouseListener, MouseMotionListener {
         return ball;
     }
 
-    private void moveBall() {
-
-    }
-
     // draws the world on the screen
     // MODIFIES: g
     // EFFECTS: Draws all physical objects and the player on the screen.
@@ -282,31 +279,51 @@ public class World implements Savable, MouseListener, MouseMotionListener {
         // useless
     }
 
+
+    // TODO: Probably move this in its own physics util class
+    // EFFECTS: Calculates the velocity of some object travelling from pointA to point B in a given time.
+    private static Vector2 calculateVelocityDeltaTime(Vector2 pointA, Vector2 pointB, float deltaTime) {
+        float dy = pointB.getY() - pointA.getY();
+        float dx = pointB.getX() - pointA.getX();
+        // d / t = v
+        return new Vector2(dx / deltaTime, dy / deltaTime);
+    }
+
     // MODIFIES: this
     // EFFECTS: Handles mouse pressing events, updates the current ball being held
-    // or creates a new ball and sets the held ball anchored value to true.
+    // or creates a new ball and sets the held ball anchored value to true. Also records the mousePosition
+    // and the time the mouse was pressed.
     @Override
     public void mousePressed(MouseEvent e) {
         heldBall = getBallAtMousePosition(e.getX(), e.getY());
         if (heldBall == null) {
             // if null, make new ball and set it to heldBall
             heldBall = addBall(new Vector2(e.getX(), e.getY()));
+
+            // we do not want the position vectors of heldBall and lastMousePosition to be the same object
             lastMousePosition = new Vector2(e.getX(), e.getY());
+            lastTimeSinceHeld = System.nanoTime();
         }
         heldBall.setAnchored(true); // not a chance that heldBall is null
 
     }
 
     // MODIFIES: this
-    // EFFECTS: If there was a ball being held, set the anchored value to false. Release the ball.
+    // EFFECTS: If there was a ball being held, set the anchored value to false. Release the ball with a velocity
+    // calculated from mouse positions between the first time it was clicked and released.
     @Override
     public void mouseReleased(MouseEvent e) {
         if (heldBall != null) {
             heldBall.setAnchored(false);
+
+            // deltaTime is multiplied by an arbitrary constant to slow down the velocity.
+            float deltaTime = convertNanoToSeconds(System.nanoTime() - lastTimeSinceHeld) * 10;
+            Vector2 mouseVelocity = calculateVelocityDeltaTime(lastMousePosition,
+                    new Vector2(e.getX(), e.getY()), deltaTime);
+            heldBall.setVelocity(mouseVelocity);
         }
 
         heldBall = null;
-
     }
 
     @Override
@@ -324,9 +341,6 @@ public class World implements Savable, MouseListener, MouseMotionListener {
     public void mouseDragged(MouseEvent e) {
         if (heldBall != null) {
             heldBall.setPosition(new Vector2(e.getX(), e.getY()));
-
-            // we do not want the vectors to be the same object
-            lastMousePosition = new Vector2(e.getX(), e.getY());
         }
 
     }
