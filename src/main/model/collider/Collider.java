@@ -32,34 +32,12 @@ public abstract class Collider {
         return attachedRigidBody.getPosition();
     }
 
+
     // Checks if a Collider is within a box built by topLeft and bottomRight points
     // EFFECTS: If all points of a ColliderRect are within the rectangle defined by the topLeft
     // and bottomRight (x, y) coordinates, return a multiplier vector that would return the
     // collider within the borders
     public abstract Vector2 calculateBorderInteraction(Vector2 velocity, Vector2 topLeft, Vector2 bottomRight);
-
-    // Updates the velocity of a collided object
-    // EFFECTS: Calculates and modifies the velocity of a particular object based on if
-    // its ColliderCircle is no longer fully inscribed within a rectangle specified by
-    // topLeft and bottomRight (x, y) coordinates.
-    public static void calculateVelocityCollision(Vector2 velocity, ColliderCircle circle,
-                                                     Vector2 topLeft, Vector2 bottomRight) {
-        Vector2 center =  circle.getCenter();
-        float centerX = center.getX();
-        float centerY = center.getY();
-        float radius = circle.getRadius();
-
-        if (centerX - radius < topLeft.getX()
-                || centerX + radius > bottomRight.getX()) {
-            velocity.multiply(Vector2.invertX);
-        }
-
-        if (centerY - radius < topLeft.getY()
-                || centerY + radius > bottomRight.getY()) {
-            velocity.multiply(Vector2.invertY);
-        }
-
-    }
 
 
 }

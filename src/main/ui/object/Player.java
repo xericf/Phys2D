@@ -20,7 +20,8 @@ public class Player extends RigidBody2D {
     // ColliderRect to give player rectangular collision detection
     public Player(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale) {
         super(position, velocity, force, scale, Color.white);
-        collider = new ColliderRect(this, scale.getX(), scale.getY()); // TODO: connect scale and collider better
+        collider = new ColliderRect(this, scale.getX(), scale.getY());
+        // TODO: connect scale and collider better
     }
 
     public Player(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale, Color color) {
@@ -50,7 +51,7 @@ public class Player extends RigidBody2D {
     // EFFECTS: draws a player on the screen
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.WHITE);
+        g.setColor(color);
         float scaleX = scale.getX();
         float scaleY = scale.getY();
         g.fillRect((int) (position.getX() - (scaleX / 2)),

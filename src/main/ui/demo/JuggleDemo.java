@@ -124,7 +124,6 @@ public class JuggleDemo extends JPanel implements Runnable {
     // Modifies: this
     // EFFECTS: Renders controls string, and objects in the world.
     private void render(Graphics g) {
-        // drawControls();
         world.draw(g);
     }
 
@@ -149,6 +148,9 @@ public class JuggleDemo extends JPanel implements Runnable {
 
     }
 
+    // Draws text
+    // MODIFIES: this
+    // EFFECTS: Draws text at a given position with a certain font.
     private void drawText(Graphics g, int x, int y, String text, Font font) {
         g.setFont(font);
         g.drawString(text, x, y);

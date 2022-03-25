@@ -1,17 +1,37 @@
 package model.collider;
 
+import model.util.Vector2;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import ui.object.Ball;
+import ui.object.Rect;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class ColliderCircleTest {
 
-    private ColliderCircle colliderCircle;
-    private ColliderRect colliderRect;
+    protected Ball ball1;
+    protected ColliderCircle colliderCircle;
 
-    /*
+    protected Rect rect1;
+    protected ColliderRect colliderRect;
+
+
     @BeforeEach
     void runBefore() {
+        ball1 = new Ball(new Vector2(0f, 0f),
+                        new Vector2(2f, 3f),
+                        new Vector2(10f, 10f),
+                        new Vector2(2, 2));
 
+        colliderCircle = ball1.getCollider();
 
-        colliderCircle = new ColliderCircle(new Vector2(0f, 0f), 1f);
-        colliderRect = new ColliderRect(new Vector2(2,2), 2, 2);
+        rect1 = new Rect(new Vector2(2f, 2f),
+                new Vector2(2f, 3f),
+                new Vector2(10f, 10f),
+                new Vector2(2, 2));
+
+        colliderRect = rect1.getCollider();
     }
 
     @Test
@@ -32,18 +52,16 @@ public class ColliderCircleTest {
     void testFindCollisionCircleRectFound() {
         ColliderPoints colliderPoints;
 
-        colliderRect.setCenter(new Vector2(2f, 0f));
+        rect1.setPosition(new Vector2(2f, 0f));
         colliderPoints = colliderCircle.findCollision(colliderRect);
         assertEquals(1, colliderPoints.getIntersectDistance());
         assertTrue(colliderPoints.getNormalSlope().equals(new Vector2(1, 0)));
 
-
-        colliderRect.setCenter(new Vector2(0f, 2f));
+        rect1.setPosition(new Vector2(0f, 2f));
         colliderPoints = colliderCircle.findCollision(colliderRect);
         assertEquals(1, colliderPoints.getIntersectDistance());
         assertTrue(colliderPoints.getNormalSlope().equals(new Vector2(0, 1)));
 
-
     }
-    */
+
 }

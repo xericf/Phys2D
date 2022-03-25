@@ -6,7 +6,7 @@ import model.util.Vector2;
 public class ColliderPoints {
 
     // General information about this class inspired by:
-    // https://www.youtube.com/watch?v=-_IspRG548E&t=157s&ab_channel=Winterdev
+    // SOURCE: https://www.youtube.com/watch?v=-_IspRG548E&t=157s&ab_channel=Winterdev
 
     // Point of object A deepest within the bounds of object B
     private Vector2 pointA;
