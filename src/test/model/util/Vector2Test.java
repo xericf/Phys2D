@@ -18,6 +18,9 @@ public class Vector2Test {
     void testConstructor() {
         assertEquals(14f, vec.getX());
         assertEquals(12f, vec.getY());
+
+        vec.setX(14f);
+        vec.setY(12f);
     }
 
     @Test
@@ -31,6 +34,10 @@ public class Vector2Test {
         // check vec object is not mutated
         assertEquals(14f, vec.getX());
         assertEquals(12f, vec.getY());
+
+        Vector2 vec2 = new Vector2(2f, 2f);
+        product = Vector2.multiply(vec2, new Vector2(3, 4));
+        assertTrue(product.equals(new Vector2(6, 8)));
     }
 
     @Test
@@ -67,6 +74,16 @@ public class Vector2Test {
 
         assertFalse(vec.equals(new Vector2(1f, 1f)));
         assertFalse(vec.equals(new Vector2(2f, 1f)));
+    }
+
+    @Test
+    void testHypotenuse() {
+        Vector2 a = new Vector2(0f, 0f);
+        Vector2 b = new Vector2(3, 4);
+
+        assertEquals(5, Vector2.calculateHypotenuse(a, b));
+
+
     }
 
 }

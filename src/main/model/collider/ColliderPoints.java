@@ -78,6 +78,7 @@ public class ColliderPoints {
         return colliding;
     }
 
+    /*
     // EFFECTS: True if the other ColliderPoints has the same property values as this object,
     // false otherwise.
     public boolean equals(ColliderPoints colliderPoints) {
@@ -89,6 +90,7 @@ public class ColliderPoints {
                 && colliding == colliderPoints.isColliding();
 
     }
+    */
 
 
 }

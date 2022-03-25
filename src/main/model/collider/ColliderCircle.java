@@ -72,10 +72,10 @@ public class ColliderCircle extends Collider {
     }
 
     @Override
-    public Vector2 calculateBorderInteraction(Vector2 velocity, Vector2 topLeft, Vector2 bottomRight) {
+    public Vector2 calculateBorderInteraction(Vector2 topLeft, Vector2 bottomRight) {
         float centerX = getCenter().getX();
         float centerY = getCenter().getY();
-
+        Vector2 velocity = attachedRigidBody.getVelocity();
         if ((centerX - radius < topLeft.getX() && velocity.getX() < 0)
                 || (centerX + radius > bottomRight.getX() && velocity.getX() > 0)) {
             return Vector2.multiply(velocity, new Vector2(-1, 1));

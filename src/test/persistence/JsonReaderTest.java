@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest {
 
+    public static final String testPath = "./data/testReaderDefaultConsoleWorld.json";
+
     @Test
     void testReaderWorldFileDoesNotExist() {
         try {
@@ -29,7 +31,7 @@ public class JsonReaderTest {
     void testReaderDefaultWorld() {
 
         try {
-            World world = JsonReader.readWorld("./data/testReaderDefaultConsoleWorld.json");
+            World world = JsonReader.readWorld(testPath);
             assertTrue(world.getSize()
                     .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()
@@ -52,7 +54,7 @@ public class JsonReaderTest {
     @Test
     void testReaderGeneralWorld() {
         try {
-            World world = JsonReader.readWorld("./data/testReaderGeneralConsoleWorld.json");
+            World world = JsonReader.readWorld(testPath);
             assertTrue(world.getSize()
                     .equals(new Vector2(JuggleDemo.defaultWidth, JuggleDemo.defaultHeight)));
             assertTrue(world.getBottomRight()

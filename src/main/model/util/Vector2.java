@@ -103,12 +103,14 @@ public class Vector2 implements Savable {
         return (float) Math.sqrt((sideX * sideX) + (sideY * sideY));
     }
 
+    /*
     // TODO: Probably move this into a different physics util class
     public static Vector2 calculateSlopeTime(Vector2 a, Vector2 b, long deltaTime) {
         // d/t = v
         return new Vector2((b.getY() - a.getY()) / deltaTime,
                 (b.getX() - a.getX()) / deltaTime);
     }
+    */
 
     public float getX() {
         return valX;
