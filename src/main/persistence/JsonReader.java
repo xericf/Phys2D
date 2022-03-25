@@ -3,10 +3,11 @@ package persistence;
 import model.util.Vector2;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import ui.object.World;
 import ui.object.Ball;
 import ui.object.Player;
+import ui.object.World;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -44,7 +45,6 @@ public class JsonReader {
     // EFFECTS: Converts worldData (JSONObject format) string into a new World with all
     // the same properties, player, and physical objects.
     private static World parseWorld(JSONObject worldData) {
-
         // World properties
         Vector2 size = Vector2.parseJson(worldData.getJSONObject("size"));
         Vector2 gravityForce = Vector2.parseJson(worldData.getJSONObject("gravityForce"));
@@ -63,7 +63,8 @@ public class JsonReader {
             Vector2 velocity = Vector2.parseJson(jsonPhysicalObject.getJSONObject("velocity"));
             Vector2 force = Vector2.parseJson(jsonPhysicalObject.getJSONObject("force"));
             Vector2 scale = Vector2.parseJson(jsonPhysicalObject.getJSONObject("scale"));
-            Ball ball = new Ball(position, velocity, force, scale);
+            Color color = new Color(jsonPhysicalObject.getInt("color"));
+            Ball ball = new Ball(position, velocity, force, scale, color);
             resultObjects.add(ball);
         }
 
@@ -81,7 +82,8 @@ public class JsonReader {
         Vector2 playerVelocity = Vector2.parseJson(jsonPlayer.getJSONObject("velocity"));
         Vector2 playerForce = Vector2.parseJson(jsonPlayer.getJSONObject("force"));
         Vector2 playerScale = Vector2.parseJson(jsonPlayer.getJSONObject("scale"));
-        return new Player(playerPosition, playerVelocity, playerForce, playerScale);
+        Color playerColor = new Color(jsonPlayer.getInt("color"));
+        return new Player(playerPosition, playerVelocity, playerForce, playerScale, playerColor);
     }
 
 

@@ -42,7 +42,6 @@ public class ColliderCircle extends Collider {
     @Override
     public ColliderPoints findCollision(ColliderRect colliderRect) {
         // the circle is intersecting with a box when the box contains some point of the circle.
-
         float boxWidthOffset = colliderRect.getWidth() / 2;
         float boxHeightOffset = colliderRect.getHeight() / 2;
         float bxLeft = colliderRect.getCenter().getX() - boxWidthOffset;

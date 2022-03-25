@@ -16,17 +16,19 @@ public abstract class RigidBody2D implements Savable {
     protected Vector2 scale;
     // protected float rotation;
 
+    protected boolean anchored = false;
+
     protected Color color;
     // protected float mass;
 
-
     // Constructor for a rigid body
-    // Effects: Builds a rigid body of a certain position, velocity, force, and scale.
-    public RigidBody2D(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale) {
+    // Effects: Builds a rigid body of a certain position, velocity, force, and scale, and color.
+    public RigidBody2D(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale, Color color) {
         this.position = position;
         this.velocity = velocity;
         this.force = force;
         this.scale = scale;
+        this.color = color;
     }
 
     // Draws the rigid body
@@ -37,10 +39,14 @@ public abstract class RigidBody2D implements Savable {
 
     // Updates the rigid body's properties every tick
     // MODIFIES: this
-    // EFFECTS: On each tick, uses a deltaTime value to determine displacement
+    // EFFECTS: On each tick, if this is not anchored, uses a deltaTime value to determine displacement
     // and new velocity based on current force being applied to the rigid body.
     // Resets net force being applied to the object to 0 on both the x and y components.
     public void tick(float deltaTime) {
+
+        if (anchored) {
+            return;
+        }
 
         // Formula: d = vt + (1/2) a t^(1/2)
         // d = vt
@@ -86,6 +92,10 @@ public abstract class RigidBody2D implements Savable {
         this.scale = scale;
     }
 
+    public void setAnchored(boolean anchored) {
+        this.anchored = anchored;
+    }
+
     public void setPosition(Vector2 position) {
         this.position = position; // needs to update collider object's position -- simply make them see eachother?
     }
@@ -98,6 +108,7 @@ public abstract class RigidBody2D implements Savable {
         jsonObject.put("velocity", velocity.toJson());
         jsonObject.put("force", force.toJson());
         jsonObject.put("scale", scale.toJson());
+        jsonObject.put("color", color.getRGB()); // color.getRGB is the int value of the color
         return jsonObject;
     }
 

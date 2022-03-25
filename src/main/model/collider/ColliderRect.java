@@ -36,10 +36,9 @@ public class ColliderRect extends Collider {
         float bxRight = getCenter().getX() + boxWidthOffset;
         float byBot = getCenter().getY() + boxHeightOffset;
 
-        Vector2 centerCircle = colliderCircle.getCenter();
         float radius = colliderCircle.getRadius();
-        float cx = centerCircle.getX();
-        float cy = centerCircle.getY();
+        float cx = colliderCircle.getCenter().getX();
+        float cy = colliderCircle.getCenter().getY();
 
         float pointX = Math.max(bxLeft, Math.min(bxRight, cx));
         float pointY = Math.max(byTop, Math.min(byBot, cy));

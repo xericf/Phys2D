@@ -46,8 +46,7 @@ public class JuggleDemo extends JPanel implements Runnable {
         world = new World(worldSize);
         jsonWriter = new JsonWriter(juggleDemoPath);
 
-        addMouseListener(world);
-        addMouseMotionListener(world);
+        addListeners();
     }
 
 
@@ -171,11 +170,30 @@ public class JuggleDemo extends JPanel implements Runnable {
     }
 
     // MODIFIES: this
+    // EFFECTS: Adds necessary mouse and mouse motion listeners to the JPanel (this) object
+    private void addListeners() {
+        addMouseListener(world);
+        addMouseMotionListener(world);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Removes the mouse and mouse motion listeners of this object.
+    private void removeListeners() {
+        // This is probably necessary to keep performance on JSON world loading.
+        removeMouseListener(world);
+        removeMouseMotionListener(world);
+    }
+
+    // MODIFIES: this
     // EFFECTS: Loads world data from a JSON file, replaces old world with a new world
     public void loadWorld()  {
-
         try {
-            world = JsonReader.readWorld(juggleDemoPath);
+            // Necessary to make sure there is a world before removing any listeners
+            World newWorld = JsonReader.readWorld(juggleDemoPath);
+
+            removeListeners();
+            world = newWorld;
+            addListeners();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -160,7 +160,8 @@ public class World implements Savable, MouseListener, MouseMotionListener {
         Ball ball = new Ball(position,
                 new Vector2((float) Math.random() * 100 - 50, 0),
                 new Vector2(0, 0),
-                new Vector2(20, 20));
+                new Vector2(30, 30),
+                new Color((int) (Math.random() * 0xFFFFFF)));
 
         worldObjects.add(ball);
         return ball;
@@ -286,12 +287,14 @@ public class World implements Savable, MouseListener, MouseMotionListener {
             heldBall = addBall(new Vector2(e.getX(), e.getY()));
             lastMousePosition = new Vector2(e.getX(), e.getY());
         }
+        heldBall.setAnchored(true); // not a chance that heldBall is null
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         if (heldBall != null) {
-            //
+            heldBall.setAnchored(false);
         }
 
         heldBall = null;
