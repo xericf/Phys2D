@@ -81,8 +81,12 @@ data structure class used for storing valuable information about collisions betw
 class which is responsible for handling reactions of RigidBodies to collisions.
 
 There are some improvements that I think I could make with the design as I move forward with this project.
-One such improvement is by making the Player extend Rect, because they are basically the same thing, but one just has 
-input functionality. 
+- One such improvement is by making the Player extend Rect, because they are basically the same thing, but one just has 
+input functionality.
+- Another improvement I could do is having the RigidBody2D class associated with a Transform class, which
+would be responsible for holding the scale, transform, and position of an object
+because it would be useful to have a single class that holds such information for future
+implementations of objects that aren't RigidBody2D's, such as soft bodies.
 
 Image:
 
