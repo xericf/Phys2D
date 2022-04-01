@@ -3,6 +3,7 @@ package ui.object;
 
 import model.collider.ColliderCircle;
 import model.collider.ColliderPoints;
+import model.log.Logger;
 import model.util.Vector2;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -152,14 +153,22 @@ public class World implements Savable, MouseListener, MouseMotionListener {
             addBall(new Vector2(200, 80));
 
         } else if (key == 70) { // F
-            worldObjects.clear();
+            clearAllBalls();
         }
 
         player.handleInput(key);
     }
 
     // MODIFIES: this
+    // EFFECTS: Logs event of balls being removed, clears the list of worldObjects.
+    private void clearAllBalls() {
+        Logger.logRemoveBalls();
+        worldObjects.clear();
+    }
+
+    // MODIFIES: this
     // EFFECTS: Adds a ball at a given position vector, and random x velocity, and returns the ball made.
+    // Logs the event of the ball being added.
     private Ball addBall(Vector2 position) {
         Ball ball = new Ball(position,
                 new Vector2((float) Math.random() * 100 - 50, 0),
@@ -168,6 +177,7 @@ public class World implements Savable, MouseListener, MouseMotionListener {
                 new Color((int) (Math.random() * 0xFFFFFF)));
 
         worldObjects.add(ball);
+        Logger.logAddBall(ball);
         return ball;
     }
 
@@ -317,9 +327,11 @@ public class World implements Savable, MouseListener, MouseMotionListener {
             heldBall.setAnchored(false);
 
             // deltaTime is multiplied by an arbitrary constant to slow down the velocity.
-            float deltaTime = convertNanoToSeconds(System.nanoTime() - lastTimeSinceHeld) * 10;
+            float deltaTime = convertNanoToSeconds(System.nanoTime() - lastTimeSinceHeld);
+            Vector2 thrownPos = new Vector2(e.getX(), e.getY());
             Vector2 mouseVelocity = calculateVelocityDeltaTime(lastMousePosition,
-                    new Vector2(e.getX(), e.getY()), deltaTime);
+                    thrownPos, deltaTime * 10);
+            Logger.logMoveBall(lastMousePosition, thrownPos, deltaTime);
             heldBall.setVelocity(mouseVelocity);
         }
 

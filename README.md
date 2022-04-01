@@ -44,3 +44,18 @@ Phase 3
   - " f " to clear the balls on the screen
   - Able to click and drag on the balls to move them.
 - GUI integration: As a user I want to be able to save and load world information on a file with " i " and " o "
+
+
+**Phase 4: Task 2**  
+
+Fri Apr 01 01:55:14 PDT 2022
+New ball has been added at: x = 438.0, y = 431.0, with an initial velocity of dx = -37.964462, dy = 0.0
+
+Fri Apr 01 01:55:14 PDT 2022
+Threw ball from starting point: x = 438.0, y = 431.0, to: x = 438.0, y = 431.0, in 0.066005 seconds
+
+Fri Apr 01 01:55:16 PDT 2022
+Threw ball from starting point: x = 433.0, y = 515.0, to: x = 857.0, y = 365.0, in 0.1250194 seconds
+
+Fri Apr 01 01:55:16 PDT 2022
+All balls have been cleared

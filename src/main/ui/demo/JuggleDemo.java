@@ -1,5 +1,6 @@
 package ui.demo;
 
+import model.log.Logger;
 import model.util.Vector2;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -67,7 +68,7 @@ public class JuggleDemo extends JPanel implements Runnable {
 
     // Starts time in the simulation
     // MODIFIES: this
-    // EFFECTS: Every (1 second / ticksPerSecond), one tick occurs,
+    // EFFECTS: Every (1 second / ticksPerSecond), one tick occurs, prints EventLog's contents and
     // exits if the world is no longer active
     private void startTicking()  {
 
@@ -81,6 +82,8 @@ public class JuggleDemo extends JPanel implements Runnable {
                 previousTime = System.nanoTime();
             }
         }
+
+        Logger.printLog();
 
         // successful termination
         System.exit(0);

@@ -1,10 +1,13 @@
 package ui;
 
+import model.log.Logger;
 import ui.demo.JuggleDemo;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 // JFrame window that holds the actual game
 public class Window extends JFrame {
@@ -28,12 +31,27 @@ public class Window extends JFrame {
     // MODIFIES: this
     // EFFECTS: initializes the current window.
     private void initializeWindowSettings() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setTitle("Physics Engine");
         //setResizable(false);
         setVisible(true);
 
+        // Window close handler
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                close();
+            }
+        });
     }
+
+    // EFFECTS: Code ran before the application is closed out of. Prints the event log on exit.
+    private void close() {
+        Logger.printLog();
+        System.exit(0);
+    }
+
 
 
     // KeyEvent handler, credit to SpaceInvadersRefactored
