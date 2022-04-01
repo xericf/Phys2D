@@ -84,3 +84,6 @@ There are some improvements that I think I could make with the design as I move 
 One such improvement is by making the Player extend Rect, because they are basically the same thing, but one just has 
 input functionality. 
 
+Image:
+
+![Picture of UML_Design_Diagram](./UML_Design_Diagram.png)
