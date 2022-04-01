@@ -59,3 +59,25 @@ Threw ball from starting point: x = 433.0, y = 515.0, to: x = 857.0, y = 365.0, 
 
 Fri Apr 01 01:55:16 PDT 2022
 All balls have been cleared
+
+**Phase 4: Task 3**
+
+Overall, I think that I am fairly satisfied with the design of this physics engine because each of the assosciations and
+aggregations were very logical, and it feels like most of the relationship of the classes seemed very necessary to be 
+structured like that. For example: It makes sense that Colliders and RigidBodies should be different from eachother,
+and there must be different types of colliders to satisfy each subtype of RigidBody for correct collision detection.  
+
+Also, I generally like to keep the amount of associations between different classes minimal, and allow for classes
+to see only what they need to know. 
+
+In the UML diagram, there are some classes that are sitting by themselves such as the ColliderPoints,
+EventLog, Logger, and JsonReader classes. These generally all use static methods to do what they are
+required to do, which is why they don't need to be associated with any other classes. Except for ColliderPoints, I chose
+to not have any classes associated with that class since I feel like it would be unnecessary. Intead, it is used as a temporary
+data structure class used for storing valuable information about collisions between colliders to be later used in a Solver
+class which is responsible for handling reactions of RigidBodies to collisions.
+
+There are some improvements that I think I could make with the design as I move forward with this project.
+One such improvement is by making the Player extend Rect, because they are basically the same thing, but one just has 
+input functionality. 
+
