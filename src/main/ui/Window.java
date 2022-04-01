@@ -14,6 +14,11 @@ public class Window extends JFrame {
 
     JuggleDemo juggleDemo;
 
+    // Main method, used for starting the game
+    public static void main(String[] args) {
+        new Window();
+    }
+
     // EFFECTS: Constructs a JFrame that allows for demos to be played in
     public Window() {
         super("Physics Engine");
