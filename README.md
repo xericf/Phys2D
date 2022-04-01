@@ -63,9 +63,12 @@ All balls have been cleared
 **Phase 4: Task 3**
 
 Overall, I think that I am fairly satisfied with the design of this physics engine because each of the assosciations and
-aggregations were very logical, and it feels like most of the relationship of the classes seemed very necessary to be 
-structured like that. For example: It makes sense that Colliders and RigidBodies should be different from eachother,
-and there must be different types of colliders to satisfy each subtype of RigidBody for correct collision detection.  
+aggregations were very logical, and it feels like most of the relationships between the classes were necessary to be 
+structured like that. For example: It makes sense that Colliders and RigidBodies should be different from each other,
+and there must be different types of colliders to satisfy each subtype of RigidBody for correct collision detection.
+This is because a collider is merely an object that detects collisions that could exist by itself, and RigidBody objects
+don't necessarily need them to exist in the world -- they just wouldn't collide with other objects. In the future, the
+benefit to this division is that you may want to create effects with objects that could "noclip". 
 
 Also, I generally like to keep the amount of associations between different classes minimal, and allow for classes
 to see only what they need to know. 
