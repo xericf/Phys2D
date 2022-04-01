@@ -1,5 +1,6 @@
 package model.log;
 
+import model.util.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +36,8 @@ public class EventTest {
     @Test
     public void testEqualsHash() {
         assertFalse((new Event("random")).equals(e));
-        assertFalse((new Object()).equals(e));
+        assertFalse(e.equals(new Object()));
+        assertFalse(e.equals(new Vector2(1, 1)));
         assertFalse(e.equals(null));
 
         // For this next text to work, the same two conditions (1), and (2) must work...

@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for the EventLog class
+ * SOURCE: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
  */
 public class EventLogTest {
 	private Event e1;
@@ -19,9 +19,9 @@ public class EventLogTest {
 	
 	@BeforeEach
 	public void loadEvents() {
-		e1 = new Event("A1");
-		e2 = new Event("A2");
-		e3 = new Event("A3");
+		e1 = new Event("B1");
+		e2 = new Event("B2");
+		e3 = new Event("B3");
 		EventLog el = EventLog.getInstance();
 		el.logEvent(e1);
 		el.logEvent(e2);
