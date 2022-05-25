@@ -90,6 +90,10 @@ public class Vector2 implements Savable {
         return this;
     }
 
+    public float dot(Vector2 vec) {
+        return (vec.getX() * getX()) + (vec.getY() * getY());
+    }
+
     // EFFECTS: Calculates the hypotenuse between two vector coordinates and returns it in float form.
     public static float calculateHypotenuse(Vector2 a, Vector2 b) {
         float ax = a.getX();
@@ -102,6 +106,14 @@ public class Vector2 implements Savable {
 
         // Hypotenuse magnitude
         return (float) Math.sqrt((sideX * sideX) + (sideY * sideY));
+    }
+
+
+    // EFFECTS: Calculates the hypotenuse of a vector's x and y coordinates with respect to the origin
+    public static float calculateHypotenuse(Vector2 a) {
+        float ax = a.getX();
+        float ay = a.getY();
+        return (float) Math.sqrt((ax * ax) + (ay * ay));
     }
 
     /*

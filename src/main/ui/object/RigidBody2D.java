@@ -19,7 +19,7 @@ public abstract class RigidBody2D implements Savable {
     protected boolean anchored = false;
 
     protected Color color;
-    // protected float mass;
+    protected float mass = 1f;
 
     // Constructor for a rigid body
     // Effects: Builds a rigid body of a certain position, velocity, force, and scale, and color.
@@ -86,6 +86,10 @@ public abstract class RigidBody2D implements Savable {
 
     public Vector2 getScale() {
         return scale;
+    }
+
+    public float getMass() {
+        return mass;
     }
 
     public void setScale(Vector2 scale) {

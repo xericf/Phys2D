@@ -54,18 +54,18 @@ public class ColliderCircleTest {
 
         rect1.setPosition(new Vector2(2f, 0f));
         colliderPoints = colliderCircle.findCollision(colliderRect);
-        assertEquals(1, colliderPoints.getIntersectDistance());
-        assertTrue(colliderPoints.getNormalSlope().equals(new Vector2(1, 0)));
+        assertEquals(1, colliderPoints.getDistance());
+        assertTrue(colliderPoints.getNormal().equals(new Vector2(1, 0)));
 
         rect1.setPosition(new Vector2(0f, 2f));
         colliderPoints = colliderCircle.findCollision(colliderRect);
-        assertEquals(1, colliderPoints.getIntersectDistance());
-        assertTrue(colliderPoints.getNormalSlope().equals(new Vector2(0, 1)));
+        assertEquals(1, colliderPoints.getDistance());
+        assertTrue(colliderPoints.getNormal().equals(new Vector2(0, 1)));
 
         rect1.setPosition(new Vector2(0f, -2f));
         colliderPoints = colliderCircle.findCollision(colliderRect);
-        assertEquals(1, colliderPoints.getIntersectDistance());
-        assertTrue(colliderPoints.getNormalSlope().equals(new Vector2(0, -1)));
+        assertEquals(1, colliderPoints.getDistance());
+        assertTrue(colliderPoints.getNormal().equals(new Vector2(0, -1)));
 
     }
 
@@ -92,8 +92,8 @@ public class ColliderCircleTest {
         ColliderCircle colliderCircle2 = ball2.getCollider();
 
         ColliderPoints colliderPoints = colliderCircle.findCollision(colliderCircle2);
-        assertEquals(1, colliderPoints.getIntersectDistance());
-        assertTrue(colliderPoints.getNormalSlope().equals(new Vector2(0, 1)));
+        assertEquals(1, colliderPoints.getDistance());
+        assertTrue(colliderPoints.getNormal().equals(new Vector2(0, 1)));
     }
 
     @Test

@@ -23,8 +23,8 @@ public class ColliderPointsTest {
     void testConstructor() {
         assertTrue(colliderPoints.getPointA().equals(pointA));
         assertTrue(colliderPoints.getPointB().equals(pointB));
-        assertTrue(colliderPoints.getNormalSlope().equals(new Vector2( 0.8f, 0.6f)));
-        assertEquals(5, colliderPoints.getIntersectDistance());
+        assertTrue(colliderPoints.getNormal().equals(new Vector2( 0.8f, 0.6f)));
+        assertEquals(5, colliderPoints.getDistance());
         assertTrue(colliderPoints.isColliding());
     }
 
@@ -34,8 +34,8 @@ public class ColliderPointsTest {
         colliderPoints = new ColliderPoints(pointA, pointB);
         assertTrue(colliderPoints.getPointA().equals(pointA));
         assertTrue(colliderPoints.getPointB().equals(pointB));
-        assertTrue(colliderPoints.getNormalSlope().equals(new Vector2( 0, 0)));
-        assertEquals(0, colliderPoints.getIntersectDistance());
+        assertTrue(colliderPoints.getNormal().equals(new Vector2( 0, 0)));
+        assertEquals(0, colliderPoints.getDistance());
         assertFalse(colliderPoints.isColliding());
     }
 

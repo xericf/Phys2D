@@ -15,10 +15,14 @@ public class ColliderPoints {
     private Vector2 pointB;
 
     // Normalized vector that represents the slope of a line segment A to B
-    private Vector2 normalSlope;
+    private Vector2 normal;
+    private double normalAngle;
+
+    // Normalized vector that represents the slope of negative reciprocal of the normal
+    private Vector2 tangent;
 
     // Distance between point A and B
-    private float intersectDistance;
+    private float distance;
 
     // If the two points are currently colliding
     private boolean colliding;
@@ -27,14 +31,14 @@ public class ColliderPoints {
     public ColliderPoints(Vector2 a, Vector2 b) {
         pointA = a;
         pointB = b;
-        computeNormalSlope(a, b);
+        computeUnitVectors(a, b);
     }
 
     // MODIFIES: this
     // EFFECTS: Computes and sets the intersectDistance. If intersectDistance is not zero, calculate
     // and set the slope from point A to point B normalized (length of 1), otherwise set the normalSlope
     // to a zero vector
-    public void computeNormalSlope(Vector2 a, Vector2 b) {
+    public void computeUnitVectors(Vector2 a, Vector2 b) {
         // The reason this is not placed within Vector2's util class is to save on computation, as
         // I prefer to calculate the magnitude only once by setting the intersectDistance property as it.
         float ax = a.getX();
@@ -46,14 +50,18 @@ public class ColliderPoints {
         float sideY = by - ay;
 
         // Hypotenuse magnitude
-        intersectDistance = Vector2.calculateHypotenuse(a, b);
+        distance = Vector2.calculateHypotenuse(a, b);
 
-        if (intersectDistance != 0) {
+        if (distance != 0) {
             // Divided by magnitude to ensure hypotenuse = 1, while keeping scale of sideX and side Y
-            normalSlope = new Vector2(sideX / intersectDistance, sideY / intersectDistance);
+            normal = new Vector2(sideX / distance, sideY / distance);
+            normalAngle = Math.atan(normal.getY() / normal.getX());
+            tangent = new Vector2(- normal.getY(), normal.getX());
             colliding = true;
         } else {
-            normalSlope = new Vector2(0, 0);
+            normal = new Vector2(0, 0);
+            normalAngle = 0;
+            tangent = new Vector2(- normal.getY(), normal.getX());
             colliding = false;
         }
     }
@@ -66,16 +74,24 @@ public class ColliderPoints {
         return pointB;
     }
 
-    public Vector2 getNormalSlope() {
-        return normalSlope;
+    public Vector2 getNormal() {
+        return normal;
     }
 
-    public float getIntersectDistance() {
-        return intersectDistance;
+    public float getDistance() {
+        return distance;
     }
 
     public boolean isColliding() {
         return colliding;
+    }
+
+    public double getNormalAngle() {
+        return normalAngle;
+    }
+
+    public Vector2 getTangent() {
+        return tangent;
     }
 
     /*

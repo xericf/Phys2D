@@ -24,7 +24,7 @@ public class ColliderCircle extends Collider {
 
         float radiusSum = radius + colliderCircle.getRadius();
         float hypotenuse = Vector2.calculateHypotenuse(getCenter(), colliderCircle.getCenter());
-        if (hypotenuse <= radiusSum) {
+        if (hypotenuse < radiusSum) {
             // We are putting in the center of the two collider circles as the collision points
             // as a generalization of the points that are furthest intercepting because the normalized
             // slope vector will the same regardless of using a point on the edge of the both circles that is

@@ -4,6 +4,7 @@ package ui.object;
 import model.collider.ColliderCircle;
 import model.collider.ColliderPoints;
 import model.log.Logger;
+import model.util.Solver;
 import model.util.Vector2;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -90,7 +91,7 @@ public class World implements Savable, MouseListener, MouseMotionListener {
             for (Ball object1 : worldObjects) {
                 ColliderPoints objectColliderPoints = object1.getCollider().findCollision(player.getCollider());
                 if (objectColliderPoints != null) {
-                    Vector2 normalSlope = objectColliderPoints.getNormalSlope();
+                    Vector2 normalSlope = objectColliderPoints.getNormal();
                     // TODO: Do this without mutating the velocity vectors for obvious reasons.
                     // TODO: Instead of multiplying the velocity, merely ensure that the sign of X and Y
                     // for the normal slope is the opposite of velocity
@@ -123,14 +124,7 @@ public class World implements Savable, MouseListener, MouseMotionListener {
 
                 ColliderPoints colliderPoints = colliderA.findCollision(colliderB);
                 if (colliderPoints != null) {
-//                    Vector2 normalSlope = colliderPoints.getNormalSlope();
-//                    // TODO: Make it reflect the velocity over the slope line for true bounce
-//
-//                    if ((normalSlope.getY() < 0 && objectA.getVelocity().getY() < 0)
-//                            || (normalSlope.getY() > 0 && objectA.getVelocity().getY() > 0)) {
-//                        objectA.getVelocity().multiply(new Vector2(1, -1));
-//                        objectA.getVelocity().multiply(new Vector2(1, -1));
-//                    }
+                    Solver.solveCircleCircleCollision(objectA, objectB, colliderPoints);
                 }
             }
 
