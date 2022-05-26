@@ -1,5 +1,6 @@
 package model.collider;
 
+import model.util.Solver;
 import model.util.Vector2;
 
 // Class for storing information about a collision
@@ -55,7 +56,12 @@ public class ColliderPoints {
         if (distance != 0) {
             // Divided by magnitude to ensure hypotenuse = 1, while keeping scale of sideX and side Y
             normal = new Vector2(sideX / distance, sideY / distance);
-            normalAngle = Math.atan(normal.getY() / normal.getX());
+
+//            normalAngle = normal.getX() == 0 ? (normal.getY() < 0 ? - Solver.HALF_PI : Solver.HALF_PI)
+//                    : Math.atan(normal.getY() / normal.getX());
+
+            normalAngle = Math.asin(normal.getY() / distance); // need this to choose the correct angle
+            normalAngle = normal.getX() < 0 ? Math.PI - normalAngle : normalAngle;
             tangent = new Vector2(- normal.getY(), normal.getX());
             colliding = true;
         } else {

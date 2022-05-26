@@ -19,15 +19,13 @@ public class Rect extends RigidBody2D {
         collider = new ColliderRect(this, scale.getX(), scale.getY());
     }
 
-    // TODO: have player extends this.
-/*
     // EFFECTS: Constructor for a rectangle with color, initializes a new rectangular collider
     // at a given position.
     public Rect(Vector2 position, Vector2 velocity, Vector2 force, Vector2 scale, Color color) {
         super(position, velocity, force, scale, color);
 
         collider = new ColliderRect(this, scale.getX(), scale.getY());
-    } */
+    }
 
     // Draws the rigid body
     // MODIFIES: g

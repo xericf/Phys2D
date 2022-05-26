@@ -101,9 +101,18 @@ public class World implements Savable, MouseListener, MouseMotionListener {
                         object1.getVelocity().multiply(new Vector2(1, -1));
                     }
 
+                    if ((normalSlope.getX() < 0 && object1.getVelocity().getX() < 0)
+                            || (normalSlope.getX() > 0 && object1.getVelocity().getX() > 0)) {
+                        object1.getVelocity().multiply(new Vector2(-1, 1));
+                    }
+
+                    Solver.separateRectCircle(player, object1, objectColliderPoints);
+
+
                 }
 
             }
+
         }
     }
 
@@ -117,11 +126,11 @@ public class World implements Savable, MouseListener, MouseMotionListener {
             ColliderCircle colliderA = objectA.getCollider();
             for (int objectBIdx = objectAIdx + 1; objectBIdx < worldObjects.size(); objectBIdx++) {
                 Ball objectB = worldObjects.get(objectBIdx);
-                ColliderCircle colliderB = objectB.getCollider();
                 if (objectB.equals(objectA)) {
                     continue; // sanity check
                 }
 
+                ColliderCircle colliderB = objectB.getCollider();
                 ColliderPoints colliderPoints = colliderA.findCollision(colliderB);
                 if (colliderPoints != null) {
                     Solver.solveCircleCircleCollision(objectA, objectB, colliderPoints);

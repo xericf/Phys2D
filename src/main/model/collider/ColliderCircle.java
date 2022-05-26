@@ -54,17 +54,16 @@ public class ColliderCircle extends Collider {
         float hypotenuse = Vector2.calculateHypotenuse(getCenter(), closestToCenter);
 
         // If hypotenuse <= radius, get point on the radius furthest in the rectangle
-        if (hypotenuse <= radius) {
+        if (hypotenuse < radius) {
             if (pointX == cx) {
                 return new ColliderPoints(getCenter(), new Vector2(cx, cy < pointY ? cy + radius : cy - radius));
             }
-            float slope = (pointY - cy) / (pointX - cx);
-            // x = (radius^2 / (slope^2 + 1))
-            float radiusX = (float) Math.sqrt((radius * radius) / (slope * slope + 1));
-            float radiusY = radiusX * slope;
-            return new ColliderPoints(getCenter(), new Vector2(radiusX, radiusY));
+            Vector2 closestPoint = new Vector2(pointX, pointY);
+            return new ColliderPoints(getCenter(), closestPoint);
         }
+
         return null;
+
     }
 
     @Override

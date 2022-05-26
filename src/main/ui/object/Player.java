@@ -6,7 +6,7 @@ import model.util.Vector2;
 import java.awt.*;
 
 // Represents a physical object that could be controlled by the user
-public class Player extends RigidBody2D {
+public class Player extends Rect {
 
     public static final float moveVelocity = 150f;
 
@@ -42,6 +42,9 @@ public class Player extends RigidBody2D {
                 break;
             case 65: // a
                 velocity.setX(-moveVelocity);
+                break;
+            case 83: // s
+                velocity.setX(0f);
                 break;
         }
 

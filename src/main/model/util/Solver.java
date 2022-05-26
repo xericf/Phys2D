@@ -3,10 +3,11 @@ package model.util;
 
 import model.collider.ColliderPoints;
 import ui.object.Ball;
+import ui.object.Rect;
 
 public class Solver {
     public static final float HALF_PI = (float) (Math.PI / 2);
-    public static final float SEPARATE_DIST = 0.05f;
+    public static final float SEPARATE_DIST = 0.1f;
 
     // EFFECTS: Takes in a vector of an object (velocity, etc.) to calculate the intersection angle
     // (measured from x-axis) between it and a collisionAxis.
@@ -76,7 +77,8 @@ public class Solver {
         Vector2 posA = a.getPosition();
         Vector2 posB = b.getPosition();
 
-        float intersect = Math.abs((a.getCollider().getRadius() + b.getCollider().getRadius()) - cp.getDistance()) / 2;
+        float intersect = Math.abs((a.getCollider().getRadius() + b.getCollider().getRadius()) - cp.getDistance()) / 2
+                + SEPARATE_DIST;
 
         // These are assumed to be the updated velocities in which a and b have already collided
         double theta = cp.getNormalAngle();
@@ -99,5 +101,61 @@ public class Solver {
         }
 
     }
+
+    public static void separateRectCircle(Rect a, Ball b, ColliderPoints cp) {
+        // TODO: Use the anchor property in decided if posA, posB should be moved or not, also add in the posA.setX, etc.
+        Vector2 posA = a.getPosition();
+        Vector2 posB = b.getPosition();
+
+        float intersect = 1f;
+        double theta = cp.getNormalAngle();
+        float cosMult = (float) Math.abs(Math.cos(theta));
+
+        if (posA.getX() < posB.getX()) {
+//            posA.setX((posA.getX() - (intersect * cosMult)));
+            posB.setX((posB.getX() + (intersect * cosMult)));
+        } else {
+//            posA.setX((posA.getX() + (intersect * cosMult)));
+            posB.setX((posB.getX() - (intersect * cosMult)));
+        }
+
+        if (posA.getY() < posB.getY()) {
+//            posA.setY((posA.getY() - (intersect * cosMult)));
+            posB.setY((posB.getY() + (intersect * cosMult)));
+        } else {
+//            posA.setY((posA.getY() + (intersect * cosMult)));
+            posB.setY((posB.getY() - (intersect * cosMult)));
+        }
+
+
+    }
+
+
+    //TODO: Make RectCircle, CircleRect solver,etc.
+
+    /*
+     for (Ball object1 : worldObjects) {
+                ColliderPoints objectColliderPoints = object1.getCollider().findCollision(player.getCollider());
+                if (objectColliderPoints != null) {
+                    Vector2 normalSlope = objectColliderPoints.getNormal();
+                    // TODO: Do this without mutating the velocity vectors for obvious reasons.
+                    // TODO: Instead of multiplying the velocity, merely ensure that the sign of X and Y
+                    // for the normal slope is the opposite of velocity
+                    // object1.setVelocity(Vector2.multiply(object1.getVelocity(), normalSlope));
+                    if ((normalSlope.getY() < 0 && object1.getVelocity().getY() < 0)
+                            || (normalSlope.getY() > 0 && object1.getVelocity().getY() > 0)) {
+                        object1.getVelocity().multiply(new Vector2(1, -1));
+                    }
+
+                    if (object1.getVelocity().getX() < 0)
+                            || (normalSlope.getX() > 0 && object1.getVelocity().getX() > 0)) {
+                        object1.getVelocity().multiply(new Vector2(-1, 1));
+                    }
+
+
+                }
+
+            }
+     */
 
 }
