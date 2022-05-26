@@ -19,7 +19,7 @@ public class Solver {
 
     // CITE: https://en.wikipedia.org/wiki/Elastic_collision#Two-dimensional
 
-    // EFFECTS:
+    // EFFECTS: Computes the new velocity of ball a and b, then separates them to prevent sticking
     // MODIFIES: a, b
     public static void solveCircleCircleCollision(Ball a, Ball b, ColliderPoints cp) {
         computeNewVelocities(a, b, cp);
@@ -27,6 +27,9 @@ public class Solver {
 
     }
 
+    // EFFECTS: Computes the new velocities for ball a and b based on conservation of momentum and kinetic energy
+    // (elastic collisions)
+    // MODIFIES: a, b
     public static void computeNewVelocities(Ball a, Ball b, ColliderPoints cp) {
 
         Vector2 va = a.getVelocity();
@@ -38,7 +41,6 @@ public class Solver {
         float ma = a.getMass();
         float mb = b.getMass();
 
-        // REMEMBER CAST, OMG
         double theta1 =  Math.asin(va.getY() / ha); // if va.getY() > 0, asin will be positive, next you need to choose
         // from the two potential solutions.
         theta1 = va.getX() < 0 ? Math.PI - theta1 : theta1; // this is required to choose from the left or right
@@ -58,9 +60,6 @@ public class Solver {
         va.setY((float) ((v1 * Math.sin(phi))
                 + (ha * Math.sin(theta1 - phi) * Math.sin(phi + HALF_PI))));
 
-        // m_1 v_1 + m_2 v_2 = m_1 v_1p + m_2 v_2p
-        // v_2p = (m_1 v_1 + m_2 v_2 - m_1 v_1p) / m_2
-
         double v2 = (hb * Math.cos(theta2 - phi) * (mb - ma)
                 + (2 * ma * ha * Math.cos(theta1 - phi))) / (ma + mb);
         vb.setX((float) ((v2 * Math.cos(phi))
@@ -70,13 +69,14 @@ public class Solver {
 
     }
 
+    // EFFECTS: Separates Ball a and Ball b, based on the normal angle from cp, moves them apart from eachother
+    // MODIFIES: a, b
     private static void separateObjects(Ball a, Ball b, ColliderPoints cp) {
 
         Vector2 posA = a.getPosition();
         Vector2 posB = b.getPosition();
 
         float intersect = Math.abs((a.getCollider().getRadius() + b.getCollider().getRadius()) - cp.getDistance()) / 2;
-
 
         // These are assumed to be the updated velocities in which a and b have already collided
         double theta = cp.getNormalAngle();
@@ -97,7 +97,6 @@ public class Solver {
             posA.setY((posA.getY() + (intersect * cosMult)));
             posB.setY((posB.getY() - (intersect * cosMult)));
         }
-
 
     }
 
