@@ -40,8 +40,14 @@ public class Solver {
         float ma = a.getMass();
         float mb = b.getMass();
 
-        double theta1 = Math.atan(va.getY() / va.getX());
-        double theta2 = Math.atan(vb.getY() / vb.getX());
+        // REMEMBER CAST, OMG
+        double theta1 =  Math.asin(va.getY() / ha); // if va.getY() > 0, asin will be positive, next you need to choose
+        // from the two potential solutions.
+        theta1 = va.getX() < 0 ? Math.PI - theta1 : theta1; // this is required to choose from the left or right
+        // angle to know if it's moving left or right
+
+        double theta2 = Math.asin(vb.getY() / hb);
+        theta2 = vb.getX() < 0 ? Math.PI - theta2 : theta2;
 
         double phi = cp.getNormalAngle();
 
