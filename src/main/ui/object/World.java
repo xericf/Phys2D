@@ -173,10 +173,13 @@ public class World implements Savable, MouseListener, MouseMotionListener {
     // EFFECTS: Adds a ball at a given position vector, and random x velocity, and returns the ball made.
     // Logs the event of the ball being added.
     private Ball addBall(Vector2 position) {
+
+        float radius = (float) (Math.random() * 50 + 10);
+
         Ball ball = new Ball(position,
                 new Vector2((float) Math.random() * 100 - 50, 0),
                 new Vector2(0, 0),
-                new Vector2(30, 30),
+                new Vector2(radius, radius),
                 new Color((int) (Math.random() * 0xFFFFFF)));
 
         worldObjects.add(ball);
