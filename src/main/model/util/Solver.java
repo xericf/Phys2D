@@ -35,8 +35,6 @@ public class Solver {
         float ha = Vector2.calculateHypotenuse(va);
         float hb = Vector2.calculateHypotenuse(vb);
 
-
-
         float ma = a.getMass();
         float mb = b.getMass();
 
@@ -79,15 +77,27 @@ public class Solver {
 
         float intersect = Math.abs((a.getCollider().getRadius() + b.getCollider().getRadius()) - cp.getDistance()) / 2;
 
+
         // These are assumed to be the updated velocities in which a and b have already collided
-        double theta1 = Math.atan(a.getVelocity().getY() / a.getVelocity().getX());
-        double theta2 = Math.atan(b.getVelocity().getY() / b.getVelocity().getX());
+        double theta = cp.getNormalAngle();
+        float cosMult = (float) Math.abs(Math.cos(theta));
 
-        posA.setX((float) (posA.getX() + (intersect * Math.cos(theta1))));
-        posB.setX((float) (posB.getX() + (intersect * Math.cos(theta2))));
+        if (posA.getX() < posB.getX()) {
+            posA.setX((posA.getX() - (intersect * cosMult)));
+            posB.setX((posB.getX() + (intersect * cosMult)));
+        } else {
+            posA.setX((posA.getX() + (intersect * cosMult)));
+            posB.setX((posB.getX() - (intersect * cosMult)));
+        }
 
-        posA.setY((float) (posA.getY() + (intersect * Math.sin(theta1))));
-        posB.setY((float) (posB.getY() + (intersect * Math.sin(theta2))));
+        if (posA.getY() < posB.getY()) {
+            posA.setY((posA.getY() - (intersect * cosMult)));
+            posB.setY((posB.getY() + (intersect * cosMult)));
+        } else {
+            posA.setY((posA.getY() + (intersect * cosMult)));
+            posB.setY((posB.getY() - (intersect * cosMult)));
+        }
+
 
     }
 
