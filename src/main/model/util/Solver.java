@@ -107,7 +107,7 @@ public class Solver {
         Vector2 posA = a.getPosition();
         Vector2 posB = b.getPosition();
 
-        float intersect = 1f;
+        float intersect = 2f;
         double theta = cp.getNormalAngle();
         float cosMult = (float) Math.abs(Math.cos(theta));
 
