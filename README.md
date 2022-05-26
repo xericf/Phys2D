@@ -1,8 +1,7 @@
 # Physics Simulator
 
-<div align="center">
 ![demo of the physics engine](./demo1.gif)
-</div>
+
 
 ## What will the application do?
 
