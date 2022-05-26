@@ -37,7 +37,7 @@ public abstract class Collider {
     // EFFECTS: If all points of a ColliderRect are within the rectangle defined by the topLeft
     // and bottomRight (x, y) coordinates, return a multiplier vector that would return the
     // collider within the borders
-    public abstract Vector2 calculateBorderInteraction(Vector2 topLeft, Vector2 bottomRight);
+    public abstract void calculateBorderInteraction(Vector2 topLeft, Vector2 bottomRight);
 
 
 }

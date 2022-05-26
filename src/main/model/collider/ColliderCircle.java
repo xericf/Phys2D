@@ -1,6 +1,7 @@
 package model.collider;
 
 import model.util.Vector2;
+import ui.demo.JuggleDemo;
 import ui.object.RigidBody2D;
 
 // Provides properties necessary for basic collision detection of circular objects
@@ -67,18 +68,26 @@ public class ColliderCircle extends Collider {
     }
 
     @Override
-    public Vector2 calculateBorderInteraction(Vector2 topLeft, Vector2 bottomRight) {
-        float centerX = getCenter().getX();
-        float centerY = getCenter().getY();
+    public void calculateBorderInteraction(Vector2 topLeft, Vector2 bottomRight) {
+        Vector2 position = getCenter();
+        float centerX = position.getX();
+        float centerY = position.getY();
         Vector2 velocity = attachedRigidBody.getVelocity();
-        if ((centerX - radius < topLeft.getX() && velocity.getX() < 0)
-                || (centerX + radius > bottomRight.getX() && velocity.getX() > 0)) {
-            return Vector2.multiply(velocity, new Vector2(-1, 1));
-        } else if ((centerY - radius < topLeft.getY() && velocity.getY() < 0)
-                || (centerY + radius > bottomRight.getY() && velocity.getY() > 0)) {
-            return Vector2.multiply(velocity, new Vector2(1, -1));
+        if ((centerX - radius < topLeft.getX() && velocity.getX() < 0)) {
+            velocity.multiply(new Vector2(-1, 1));
+            position.setX(0 + radius);
+        } else if ((centerX + radius > bottomRight.getX() && velocity.getX() > 0)) {
+            velocity.multiply(new Vector2(-1, 1));
+            position.setX(JuggleDemo.defaultWidth - radius);
+        } else if ((centerY - radius < topLeft.getY() && velocity.getY() < 0)) {
+            velocity.multiply(new Vector2(1, -1));
+            position.setY(0 + radius);
+        } else if ((centerY + radius > bottomRight.getY() && velocity.getY() > 0)) {
+            velocity.multiply(new Vector2(1, -1));
+            position.setY(JuggleDemo.defaultHeight - radius);
         }
-        return velocity; // doesn't mutate the velocity directly for good practice
+
+
     }
 
     public float getRadius() {

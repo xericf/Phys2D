@@ -81,18 +81,17 @@ public class ColliderRect extends Collider {
     }
 
     @Override
-    public Vector2 calculateBorderInteraction(Vector2 topLeft, Vector2 bottomRight) {
+    public void calculateBorderInteraction(Vector2 topLeft, Vector2 bottomRight) {
         float centerX = getCenter().getX();
         float centerY = getCenter().getY();
         Vector2 velocity = attachedRigidBody.getVelocity();
         if ((centerX - (width / 2) < topLeft.getX() && velocity.getX() < 0)
                 || (centerX + (width / 2) > bottomRight.getX() && velocity.getX() > 0)) {
-            return Vector2.multiply(velocity, new Vector2(-1, 1));
+            velocity.multiply(new Vector2(-1, 1));
         } else if ((centerY - (height / 2) < topLeft.getY() && velocity.getY() < 0)
                 || (centerY + (height / 2) > bottomRight.getY() && velocity.getY() > 0)) {
-            return Vector2.multiply(velocity, new Vector2(1, -1));
+            velocity.multiply(new Vector2(1, -1));
         }
-        return velocity; // doesn't mutate the velocity directly for good practice
     }
 
 

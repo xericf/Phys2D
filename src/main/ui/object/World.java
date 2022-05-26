@@ -84,9 +84,7 @@ public class World implements Savable, MouseListener, MouseMotionListener {
     // EFFECTS: Handles the collisions of the player and worldObjects
     private void checkPlayerCollisions() {
         if (player != null && player.getCollider() != null) {
-            Vector2 newVelocity = player.getCollider()
-                    .calculateBorderInteraction(topLeft, bottomRight);
-            player.setVelocity(newVelocity);
+            player.getCollider().calculateBorderInteraction(topLeft, bottomRight);
 
             for (Ball object1 : worldObjects) {
                 ColliderPoints objectColliderPoints = object1.getCollider().findCollision(player.getCollider());
@@ -137,8 +135,8 @@ public class World implements Savable, MouseListener, MouseMotionListener {
                 }
             }
 
-            Vector2 newVelocity = colliderA.calculateBorderInteraction(topLeft, bottomRight);
-            objectA.setVelocity(newVelocity);
+            colliderA.calculateBorderInteraction(topLeft, bottomRight);
+
 
         }
     }
