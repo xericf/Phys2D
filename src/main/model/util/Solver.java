@@ -131,31 +131,4 @@ public class Solver {
     }
 
 
-    //TODO: Make RectCircle, CircleRect solver,etc.
-
-    /*
-     for (Ball object1 : worldObjects) {
-                ColliderPoints objectColliderPoints = object1.getCollider().findCollision(player.getCollider());
-                if (objectColliderPoints != null) {
-                    Vector2 normalSlope = objectColliderPoints.getNormal();
-                    // TODO: Do this without mutating the velocity vectors for obvious reasons.
-                    // TODO: Instead of multiplying the velocity, merely ensure that the sign of X and Y
-                    // for the normal slope is the opposite of velocity
-                    // object1.setVelocity(Vector2.multiply(object1.getVelocity(), normalSlope));
-                    if ((normalSlope.getY() < 0 && object1.getVelocity().getY() < 0)
-                            || (normalSlope.getY() > 0 && object1.getVelocity().getY() > 0)) {
-                        object1.getVelocity().multiply(new Vector2(1, -1));
-                    }
-
-                    if (object1.getVelocity().getX() < 0)
-                            || (normalSlope.getX() > 0 && object1.getVelocity().getX() > 0)) {
-                        object1.getVelocity().multiply(new Vector2(-1, 1));
-                    }
-
-
-                }
-
-            }
-     */
-
 }
