@@ -35,11 +35,7 @@ public class Solver {
         float ha = Vector2.calculateHypotenuse(va);
         float hb = Vector2.calculateHypotenuse(vb);
 
-        // saved old velocities
-        float vax = va.getX();
-        float vay = va.getY();
-        float vbx = vb.getX();
-        float vby = vb.getY();
+
 
         float ma = a.getMass();
         float mb = b.getMass();
@@ -61,8 +57,12 @@ public class Solver {
         // m_1 v_1 + m_2 v_2 = m_1 v_1p + m_2 v_2p
         // v_2p = (m_1 v_1 + m_2 v_2 - m_1 v_1p) / m_2
 
-        vb.setX(((ma * vax) + (mb * vbx) - (ma * va.getX())) / mb);
-        vb.setY(((ma * vay) + (mb * vby) - (ma * va.getY())) / mb);
+        double v2 = (hb * Math.cos(theta2 - phi) * (mb - ma)
+                + (2 * ma * ha * Math.cos(theta1 - phi))) / (ma + mb);
+        vb.setX((float) ((v2 * Math.cos(phi))
+                + (hb * Math.sin(theta2 - phi) * Math.cos(phi + HALF_PI))));
+        vb.setY((float) ((v2 * Math.sin(phi))
+                + (hb * Math.sin(theta2 - phi) * Math.sin(phi + HALF_PI))));
 
     }
 
