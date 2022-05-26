@@ -78,7 +78,8 @@ public class ColliderCircle extends Collider {
             position.setX(0 + radius);
         } else if ((centerX + radius > bottomRight.getX() && velocity.getX() > 0)) {
             velocity.multiply(new Vector2(-1, 1));
-            position.setX(JuggleDemo.defaultWidth - radius);
+            position.setX(JuggleDemo.defaultWidth - radius); // TODO: Clearly a connection with the game window's
+            // current width and height needs to be made.
         } else if ((centerY - radius < topLeft.getY() && velocity.getY() < 0)) {
             velocity.multiply(new Vector2(1, -1));
             position.setY(0 + radius);

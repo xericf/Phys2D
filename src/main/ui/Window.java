@@ -30,6 +30,7 @@ public class Window extends JFrame {
 
         pack(); // sizes all components so they are at their preferred sizes
 
+
         juggleDemo.begin();
     }
 

@@ -1,5 +1,9 @@
 # Physics Simulator
 
+<div align="center">
+![demo of the physics engine](./demo1.gif)
+</div>
+
 ## What will the application do?
 
 This application will be able to simulate various **2 dimensional objects based on newton's  
